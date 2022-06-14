@@ -1,4 +1,4 @@
-package com.ntamobile.getxpattern
+package com.ntamobile.flutter_chat_app
 
 import io.flutter.embedding.android.FlutterActivity
 

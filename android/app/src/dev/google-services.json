@@ -1,92 +1,48 @@
 {
   "project_info": {
-    "project_number": "722408477068",
-    "project_id": "getxpattern-892e7",
-    "storage_bucket": "getxpattern-892e7.appspot.com"
+    "project_number": "1069607834406",
+    "project_id": "flutter-chat-app-bdfc2",
+    "storage_bucket": "flutter-chat-app-bdfc2.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:722408477068:android:e2cb766c704f6e1ab706a9",
+        "mobilesdk_app_id": "1:1069607834406:android:32d1a784b1f557eb19e7e7",
         "android_client_info": {
-          "package_name": "com.ntamobile.getxpattern"
+          "package_name": "com.ntamobile.flutter_chat_app"
         }
       },
       "oauth_client": [
         {
-          "client_id": "722408477068-1mjk1pf3619mk5k5o6shvqfqrteakkik.apps.googleusercontent.com",
+          "client_id": "1069607834406-ltn7sdo1ekq5m358ivml75ai7at3etcu.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.ntamobile.getxpattern",
+            "package_name": "com.ntamobile.flutter_chat_app",
             "certificate_hash": "c7c6371a0f493f9f70db9df27cea8bc90c9a599f"
           }
         },
         {
-          "client_id": "722408477068-t815ct4t2vkngf65hqr8cvgkvt9lu036.apps.googleusercontent.com",
+          "client_id": "1069607834406-t3u8303i935l0saui2d077qh0e1nffbc.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyC_1shD63wV7A1xgUeHm126StnnlxVcO-c"
+          "current_key": "AIzaSyBUzmvyIQRw_V6bY9qUsXcRevh4P5I3tSM"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "722408477068-t815ct4t2vkngf65hqr8cvgkvt9lu036.apps.googleusercontent.com",
+              "client_id": "1069607834406-t3u8303i935l0saui2d077qh0e1nffbc.apps.googleusercontent.com",
               "client_type": 3
             },
             {
-              "client_id": "722408477068-k64js2f2h643gjii0li4ub5pvj2rjag6.apps.googleusercontent.com",
+              "client_id": "1069607834406-ukgeis192c0vhthcj28gm1n4e8agdakh.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.ntamobile.getxpattern.dev"
-              }
-            }
-          ]
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:722408477068:android:9c3289263b99fee1b706a9",
-        "android_client_info": {
-          "package_name": "com.ntamobile.getxpattern.dev"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "722408477068-3qm9luale26kpekkuc8sn848agolvh2s.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.ntamobile.getxpattern.dev",
-            "certificate_hash": "c7c6371a0f493f9f70db9df27cea8bc90c9a599f"
-          }
-        },
-        {
-          "client_id": "722408477068-t815ct4t2vkngf65hqr8cvgkvt9lu036.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyC_1shD63wV7A1xgUeHm126StnnlxVcO-c"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "722408477068-t815ct4t2vkngf65hqr8cvgkvt9lu036.apps.googleusercontent.com",
-              "client_type": 3
-            },
-            {
-              "client_id": "722408477068-k64js2f2h643gjii0li4ub5pvj2rjag6.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "com.ntamobile.getxpattern.dev"
+                "bundle_id": "com.ntamobile.flutter-chat-app"
               }
             }
           ]
