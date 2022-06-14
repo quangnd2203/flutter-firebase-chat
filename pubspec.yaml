@@ -1,0 +1,71 @@
+name: flutter_app
+description: Application with flutter.
+
+version: 4.6.5
+
+environment:
+  sdk: ">=2.13.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # Notification
+  flutter_local_notifications: ^9.6.0
+  firebase_messaging: ^11.4.1
+
+  # Firebase
+  firebase_analytics: ^9.1.9
+  firebase_core: ^1.17.1
+  cloud_firestore: ^3.1.17
+  firebase_storage: ^10.2.17
+  firebase_auth: ^3.3.19
+
+  #SignIn social
+  flutter_facebook_auth: ^4.3.4+2
+  google_sign_in: ^5.3.3
+  sign_in_with_apple: ^4.0.0
+  twitter_login: ^4.2.3
+
+  #Network
+  dio: ^4.0.6
+  connectivity_plus: ^2.3.4
+  logger: ^1.1.0
+
+  crypto: ^3.0.2
+  get: ^4.6.5
+  flutter_svg: ^1.1.0
+  path_provider: ^2.0.11
+  device_info_plus: ^3.2.4
+  overlay_support: ^2.0.1
+  get_storage: ^2.0.3
+
+  #DataBase
+#  backendless_sdk: ^7.2.3
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/images/
+
+  fonts:
+    - family: HKGrotesk
+      fonts:
+        - asset: assets/fonts/hk-grotesk/HKGrotesk-Black.otf
+          weight: 900
+        - asset: assets/fonts/hk-grotesk/HKGrotesk-Black.otf
+          weight: 800
+        - asset: assets/fonts/hk-grotesk/HKGrotesk-Bold.otf
+          weight: 700
+        - asset: assets/fonts/hk-grotesk/HKGrotesk-SemiBold.otf
+          weight: 600
+        - asset: assets/fonts/hk-grotesk/HKGrotesk-Medium.otf
+          weight: 500
+        - asset: assets/fonts/hk-grotesk/HKGrotesk-Regular.otf
+          weight: 400
+        - asset: assets/fonts/hk-grotesk/HKGrotesk-Light.otf
+          weight: 300
+        - asset: assets/fonts/hk-grotesk/HKGrotesk-Light.otf
+          weight: 200
+        - asset: assets/fonts/hk-grotesk/HKGrotesk-Light.otf
+          weight: 100
