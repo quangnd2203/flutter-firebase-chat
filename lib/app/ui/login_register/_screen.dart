@@ -145,8 +145,7 @@ class LoginRegisterScreen extends BaseScreen<LoginRegisterController> {
               onTap: controller.changeStateLoginRegister,
               child: Text(
                 keyAction,
-                style: AppTextStyles.normal
-                    .copyWith(decoration: TextDecoration.underline),
+                style: AppTextStyles.normalSemiBold.copyWith(decoration: TextDecoration.underline, color: Colors.blueAccent),
               ),
             ),
           ),

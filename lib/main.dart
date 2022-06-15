@@ -5,12 +5,13 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:logger/logger.dart';
+import 'package:logger/logger.dart' as logger;
 import 'package:overlay_support/overlay_support.dart';
 
 import 'app/constants/constants.dart';
 import 'app/notification/firebase_messaging.dart';
 import 'app/notification/notification.dart';
+import 'app/resources/database/database.dart';
 import 'app/routes/app_pages.dart';
 import 'app/translations/app_translations.dart';
 import 'app/ui/ui.dart';
@@ -23,7 +24,8 @@ void main() async {
   await Firebase.initializeApp();
   await AppPrefs.initListener();
   await notificationInitialed();
-  Logger().d('RUNNING IN $FLAVOR ENVIRONMENT'.toUpperCase());
+  await AppDataBase().initDataBase();
+  logger.Logger().d('RUNNING IN $FLAVOR ENVIRONMENT'.toUpperCase());
   print('FCM TOKEN: ${await FirebaseCloudMessaging.getFCMToken()}');
   runApp(const OverlaySupport(child: RestartWidget(child: App())));
 }

@@ -50,7 +50,7 @@ apply plugin: 'com.google.gms.google-services'
 android {
     compileSdkVersion 31
 
-    def appName = 'flutter'
+    def appName = 'Flutter Chat App'
 
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
