@@ -1,15 +1,14 @@
-import '../../constants/constants.dart';
 import '../resources.dart';
 
-class UserRegisterRepository {
+class UserRepository {
 
-  factory UserRegisterRepository() {
-    _instance ??= UserRegisterRepository._();
+  factory UserRepository() {
+    _instance ??= UserRepository._();
     return _instance!;
   }
-  UserRegisterRepository._();
+  UserRepository._();
 
-  static UserRegisterRepository? _instance;
+  static UserRepository? _instance;
   
   Future<List<UserModel>> checkUserExist({required String name, required String password}) async {
     final List<UserModel> userModel = await UserDao().read();

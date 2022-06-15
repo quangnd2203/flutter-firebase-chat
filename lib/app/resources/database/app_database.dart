@@ -54,7 +54,7 @@ class AppDataBase {
     try {
       data = await Backendless.data.of(tableName).find(queryBuilder);
       logger.i('RESPONSE: $data');
-    } catch (e) {
+    } on Exception catch (e) {
       _handleError(e);
     }
     return data;
@@ -64,7 +64,7 @@ class AppDataBase {
   ///
   /// BackendlessException: Object errors Backendless định nghĩa.
   /// PlatformException: Object errors theo bắt lỗi theo từng nền tảng (IOS hoặc Android).
-  void _handleError(dynamic e) {
+  void _handleError(Exception e) {
     if (e is BackendlessException) {
       logger.e('URL: ${e.uri}/n${e.code} - Error ${e.message}');
     } else if (e is PlatformException) {
@@ -72,5 +72,6 @@ class AppDataBase {
     } else {
       logger.e('ERROR: $e');
     }
+    throw e;
   }
 }
