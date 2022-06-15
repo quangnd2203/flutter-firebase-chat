@@ -7,6 +7,7 @@ import 'package:crypto/crypto.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:logger/logger.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 import 'package:twitter_login/entity/auth_result.dart';
 import 'package:twitter_login/twitter_login.dart';
@@ -105,8 +106,7 @@ class SocialService {
       if (googleUser == null)
         throw Exception('GoogleSignInAccount from google null!');
       if (await GoogleSignIn().isSignedIn()) {
-        final GoogleSignInAuthentication googleAuth =
-            await googleUser.authentication;
+        final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
         result.id = googleUser.id;
         result.fullName = googleUser.displayName;
         result.email = googleUser.email;
@@ -251,7 +251,7 @@ class SocialServiceFirebase {
     final GoogleSignInAccount? result = await googleLogin.signIn();
     final GoogleSignInAuthentication? auth = await result?.authentication;
     if (auth != null) {
-      print('${auth.accessToken}');
+      Logger().i('SOCIAL TOKEN: ${auth.accessToken}');
       return GoogleAuthProvider.credential(
           idToken: auth.idToken, accessToken: auth.accessToken);
     }
@@ -265,7 +265,7 @@ class SocialServiceFirebase {
     switch (result.status) {
       case LoginStatus.success:
         print('_loginFacebook ok');
-        print(result.accessToken!.token);
+        Logger().i('SOCIAL TOKEN: ${result.accessToken!.token}');
         return FacebookAuthProvider.credential(result.accessToken!.token);
       case LoginStatus.cancelled:
         print('_loginFacebook cancel');

@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../resources/resources.dart';
 import '../ui.dart';
@@ -17,6 +18,7 @@ class NavigationController extends BaseController {
       count.refresh();
     });
     await fetchTestApi();
+    await authentication();
   }
 
   Future<void> fetchTestApi() async {
@@ -26,5 +28,10 @@ class NavigationController extends BaseController {
       raw.refresh();
     }
   }
-
+  
+  Future<void> authentication() async {
+    final loginSocialFirebaseResult = await SocialService().signInGoogle();
+    debugPrint(loginSocialFirebaseResult.accessToken);
+    debugPrint(loginSocialFirebaseResult.fullName);
+  }
 }

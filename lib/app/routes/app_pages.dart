@@ -10,5 +10,6 @@ class AppPages {
   static final List<GetPage> pages = <GetPage>[
     GetPage(name: Routes.SPLASH, page:()=> SplashScreen(), binding: SplashBinding()),
     GetPage(name: Routes.NAVIGATION, page:()=> NavigationScreen(), binding: NavigationBinding()),
+    GetPage(name: Routes.LOGIN_REGISTER, page:()=> LoginRegisterScreen(), binding: LoginRegisterBinding()),
   ];
 }

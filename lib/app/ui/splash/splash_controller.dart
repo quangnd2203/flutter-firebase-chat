@@ -7,8 +7,8 @@ class SplashController extends BaseController {
   @override
   Future<void> onInit() async {
     super.onInit();
-    await getConfig();
-    await getProfile();
+    // await getConfig();
+    // await getProfile();
   }
 
   Future<void> getConfig() async {}

@@ -1,5 +1,8 @@
 // ignore_for_file: depend_on_referenced_packages
 
+import 'dart:convert';
+
+import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:overlay_support/overlay_support.dart';
@@ -94,5 +97,11 @@ class AppUtils {
 
   static String convertPhoneNumber(String phone, {String code = '+84'}) {
     return '$code${phone.substring(1)}';
+  }
+
+  static String convertToSha256(String input){
+    final List<int> bytes = utf8.encode(input);
+    final Digest digest = sha256.convert(bytes);
+    return digest.toString();
   }
 }
