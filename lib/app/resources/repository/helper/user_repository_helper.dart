@@ -23,7 +23,7 @@ class UserRepositoryHelper{
   Future<List<UserModel>> getListUser({String whereClause = '', List<String>? properties}) async {
     List<UserModel> result;
     final DataQueryBuilder query = DataQueryBuilder();
-    query.properties = properties ?? [];
+    query.properties = properties ?? <String>[];
     query.havingClause = whereClause;
     result = await UserDao().read(queryBuilder: query);
     return result;
