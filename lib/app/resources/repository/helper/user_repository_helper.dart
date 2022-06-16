@@ -28,4 +28,12 @@ class UserRepositoryHelper{
     result = await UserDao().read(queryBuilder: query);
     return result;
   }
+
+  Future<UserModel?> saveUser(UserModel model) async {
+    UserModel? userModel;
+    final Map<String, dynamic> data = model.toJson();
+    data.removeWhere((String key, dynamic value) => value == null);
+    userModel = await UserDao().save(data: data);
+    return userModel;
+  }
 }

@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 
 import '../../constants/constants.dart';
 import '../../notification/firebase_messaging.dart';
+import '../../utils/app_utils.dart';
 import '../../utils/utils.dart';
 import '../resources.dart';
 
@@ -31,15 +32,15 @@ class UserRepository {
       final bool userNotExist = listUserExist.isEmpty;
 
       if(userNotExist){
-        final Map<String, dynamic> data = UserModel(
-          uid: BackendService().generateGUID(),
-          email: email,
-          password: BackendService().convertPasswordTo256(password),
-          accountType: accountType,
-          fcmToken: await FirebaseCloudMessaging.getFCMToken(),
-        ).toJson();
-        data.removeWhere((String key, dynamic value) => value == null);
-        userModel = await UserDao().save(data: data);
+        helper.saveUser(
+            UserModel(
+            uid: BackendService().generateGUID(),
+            email: email,
+            password: BackendService().convertPasswordTo256(password),
+            accountType: accountType,
+            fcmToken: await FirebaseCloudMessaging.getFCMToken(),
+          ),
+        );
         AppPrefs.user = userModel;
       }
       return NetworkState<UserModel>(
@@ -76,6 +77,50 @@ class UserRepository {
         status: users.isNotEmpty ? AppEndpoint.SUCCESS : AppEndpoint.FAILED,
         data: users.isNotEmpty ? users.first : null,
         message: users.isNotEmpty ? 'success' : 'login_failed'.tr,
+      );
+    } on Exception catch(e) {
+      return NetworkState<UserModel?>.withError(e);
+    }
+  }
+
+  Future<NetworkState<UserModel?>> loginSocial(LoginSocialResult loginSocialResult, SocialType type) async{
+    final bool isDisconnect = await WifiService.isDisconnect();
+    if (isDisconnect) {
+      return NetworkState<UserModel?>.withDisconnect();
+    }
+    try {
+      final List<String> properties = <String>['uid', 'name', 'email', 'isNewUser', 'fcmToken', 'accountType'];
+      final String havingClause = "email='${loginSocialResult.id}'";
+
+      final List<UserModel> users = await helper.getListUser(
+        properties: properties,
+        whereClause: havingClause,
+      );
+      final bool userNotExist = users.isEmpty;
+      UserModel? userModel;
+      if(userNotExist){
+        userModel = await helper.saveUser(
+          UserModel(
+            uid: BackendService().generateGUID(),
+            email: loginSocialResult.id.toString(),
+            accountType: AppUtils.getNameOfEnumValue(type),
+            name: loginSocialResult.fullName,
+            fcmToken: await FirebaseCloudMessaging.getFCMToken(),
+            isNewUser: loginSocialResult.fullName == null,
+          ),
+        );
+      } else{
+        userModel = users.first;
+      }
+
+      userModel!.fcmToken = await FirebaseCloudMessaging.getFCMToken();
+      await helper.updateFcmToken(userModel.fcmToken!, updateClause: havingClause);
+      AppPrefs.user = userModel;
+
+      return NetworkState<UserModel>(
+        status: userModel != null ? AppEndpoint.SUCCESS : AppEndpoint.FAILED,
+        data: userModel,
+        message: userModel != null ? 'success' : 'system_errors'.tr,
       );
     } on Exception catch(e) {
       return NetworkState<UserModel?>.withError(e);

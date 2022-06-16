@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
 import '../widgets/dialog/dialog.dart';
@@ -20,5 +20,10 @@ class BaseController extends GetxController {
 
   Future<bool?> notification(String title) async {
     return Get.dialog(WidgetDialogNotification(title: title));
+  }
+
+  void unFocus() {
+    Get.focusScope!.unfocus();
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: <SystemUiOverlay>[]);
   }
 }

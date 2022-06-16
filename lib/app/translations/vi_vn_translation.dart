@@ -19,4 +19,5 @@ final Map<String, String> viVN = <String, String>{
   'valid_phone':'Số điện thoại không hợp lệ!',
   'valid_password':'Mật khẩu không đúng!',
   'valid_password_confirm':'Nhập lại mật khẩu không đúng!',
+  'login_social_another':'Hoặc đăng nhập với',
 };

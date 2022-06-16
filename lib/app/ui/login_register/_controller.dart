@@ -26,11 +26,13 @@ class LoginRegisterController extends BaseController {
   }
 
   void changeStateLoginRegister() {
+    unFocus();
     isRegister.value = !isRegister.value;
     clearTextField();
   }
 
   Future<void> registerAccount() async {
+    unFocus();
     if(formKey.currentState!.validate()) {
       final dynamic next = await confirm();
       if (next == true) {
@@ -50,12 +52,41 @@ class LoginRegisterController extends BaseController {
   }
 
   Future<void> loginNormal() async {
+    unFocus();
     if(formKey.currentState!.validate()) {
       setLoading(true);
       final NetworkState<UserModel?> networkState = await userRepository.loginNormal(
         email: userNameController.text,
         password: passwordController.text,
       );
+      setLoading(false);
+      if (networkState.isSuccess) {
+        AppUtils.toast('Success');
+      } else {
+        notification(networkState.message!);
+      }
+    }
+  }
+
+  Future<void> loginSocial(SocialType type) async {
+    LoginSocialResult? loginSocialResult;
+
+    switch(type){
+      case SocialType.google:
+        loginSocialResult = await SocialService().signInGoogle();
+        break;
+      case SocialType.facebook:
+        loginSocialResult = await SocialService().signInFacebook();
+        break;
+      case SocialType.twitter:
+        break;
+      case SocialType.apple:
+        break;
+    }
+
+    if(loginSocialResult?.id != null){
+      setLoading(true);
+      final NetworkState<UserModel?> networkState = await userRepository.loginSocial(loginSocialResult!, type);
       setLoading(false);
       if (networkState.isSuccess) {
         AppUtils.toast('Success');

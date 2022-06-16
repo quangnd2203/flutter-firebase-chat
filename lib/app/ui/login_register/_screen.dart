@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../constants/constants.dart';
+import '../../resources/resources.dart';
 import '../../utils/utils.dart';
 import '../ui.dart';
 
@@ -11,9 +12,7 @@ class LoginRegisterScreen extends BaseScreen<LoginRegisterController> {
   @override
   Widget? builder() {
     return Scaffold(
-      body: SafeArea(
-        child: buildBody(),
-      ),
+      body: buildBody(),
     );
   }
 
@@ -31,7 +30,29 @@ class LoginRegisterScreen extends BaseScreen<LoginRegisterController> {
                   scale: 7,
                 ),
               ] +
-              (controller.isRegister.value ? buildRegister() : buildLogin()),
+              (controller.isRegister.value ? buildRegister() : buildLogin()) +
+              <Widget>[
+                const SizedBox(
+                  height: 70,
+                ),
+                Text(
+                  'login_social_another'.tr,
+                  style: AppTextStyles.normal,
+                ),
+                const SizedBox(
+                  height: 16,
+                ),
+                Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    buildLoginSocialItem('login_google', SocialType.google),
+                    const SizedBox(
+                      width: 16,
+                    ),
+                    buildLoginSocialItem('login_facebook', SocialType.facebook),
+                  ],
+                )
+              ],
         ),
       ),
     );
@@ -112,7 +133,8 @@ class LoginRegisterScreen extends BaseScreen<LoginRegisterController> {
         labelText: 'register_re_password'.tr,
         hintText: 'Asdf1234!',
         obscureText: true,
-        validator: (String? value) => AppValid.validatePasswordConfirm(controller.passwordController, value),
+        validator: (String? value) => AppValid.validatePasswordConfirm(
+            controller.passwordController, value),
       ),
       const SizedBox(
         height: 16,
@@ -147,11 +169,23 @@ class LoginRegisterScreen extends BaseScreen<LoginRegisterController> {
               onTap: controller.changeStateLoginRegister,
               child: Text(
                 keyAction,
-                style: AppTextStyles.normalSemiBold.copyWith(decoration: TextDecoration.underline, color: Colors.blueAccent),
+                style: AppTextStyles.normalSemiBold.copyWith(
+                    decoration: TextDecoration.underline,
+                    color: Colors.blueAccent),
               ),
             ),
           ),
         ],
+      ),
+    );
+  }
+
+  Widget buildLoginSocialItem(String image, SocialType type) {
+    return GestureDetector(
+      onTap: () => controller.loginSocial(type),
+      child: Image.asset(
+        AppImages.png(image),
+        scale: 1.75,
       ),
     );
   }

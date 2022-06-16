@@ -74,7 +74,7 @@ class AppDataBase {
   }
 
   Future<int?> update(String tableName, {required String whereClause, required Map<String, dynamic> data}) async {
-    logger.d('UPDATE: $tableName\nDATA: $data');
+    logger.d('UPDATE: $tableName\nDATA: $data\nWHERE_CLAUSE: $whereClause');
     int? success;
     try{
       success = (await Backendless.data.of(tableName).update(whereClause, data)) ?? 0;

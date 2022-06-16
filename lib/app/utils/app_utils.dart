@@ -104,4 +104,8 @@ class AppUtils {
     final Digest digest = sha256.convert(bytes);
     return digest.toString();
   }
+
+  static String getNameOfEnumValue(dynamic enumValue){
+    return enumValue.toString().split('.').last;
+  }
 }
