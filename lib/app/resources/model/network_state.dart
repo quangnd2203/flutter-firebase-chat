@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:developer';
 import 'package:dio/dio.dart';
+import 'package:get/get.dart' as get_x;
 import '../../constants/app_endpoint.dart';
 
 typedef NetworkStateConverter<T> = T Function(Map<String, dynamic> json);
@@ -45,16 +46,17 @@ class NetworkState<T> {
     data = json['data'] as T;
   }
 
-  NetworkState.withError(DioError error) {
+  NetworkState.withError(Exception error) {
     String message;
     int? code;
-    final Response<T>? response = error.response as Response<T>?;
-    if (response != null) {
-      code = response.statusCode;
-      message = (response.data! as Map<String, dynamic>)['message'] as String;
+    if(error is DioError){
+      final Response<T>? response = error.response as Response<T>?;
+      code = response?.statusCode ??  AppEndpoint.ERROR_SERVER;
+      final String? serverMessage = (response?.data as Map<String, dynamic>?)?['message'] as String?;
+      message = serverMessage ?? 'Không thể kết nối đến máy chủ!';
     } else {
-      code = AppEndpoint.ERROR_SERVER;
-      message = 'Không thể kết nối đến máy chủ!';
+      code = AppEndpoint.ERROR_DISCONNECT;
+      message = 'system_errors'.tr;
     }
     this.message = message;
     status = code;

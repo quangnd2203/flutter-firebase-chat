@@ -117,7 +117,7 @@ class LoginRegisterScreen extends BaseScreen<LoginRegisterController> {
       ),
       WidgetButton(
         labelText: 'register'.tr,
-        onPressed: () => null,
+        onPressed: controller.registerAccount,
       ),
       const SizedBox(
         height: 16,

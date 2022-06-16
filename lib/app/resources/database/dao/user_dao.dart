@@ -1,4 +1,3 @@
-
 import '../../resources.dart';
 
 class UserDao implements Dao<UserModel>{
@@ -28,7 +27,7 @@ class UserDao implements Dao<UserModel>{
     List<UserModel> result = <UserModel>[];
     final List<Map<dynamic, dynamic>?>? response = await appDatabase.read(tableName, queryBuilder: queryBuilder);
     if(response != null){
-      result = response.map<UserModel>((Map<dynamic, dynamic>? e) => UserModel.fromJson(e! as Map<String, dynamic>)).toList();
+      result = response.map<UserModel>((Map<dynamic, dynamic>? e) => UserModel.fromJson(Map<String, dynamic>.from(e!))).toList();
     }
     return result;
   }

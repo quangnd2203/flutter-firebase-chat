@@ -8,4 +8,6 @@ final Map<String, String> viVN = <String, String>{
   'login_have_account':'Bạn đã có tài khoản',
   'register':'Đăng ký',
   'register_re_password':'Nhập lại mật khẩu',
+  'user_exist':'Người dùng đã tồn tại!',
+  'system_errors':'Lỗi hệ thống!',
 };
