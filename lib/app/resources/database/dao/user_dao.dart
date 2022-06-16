@@ -42,4 +42,10 @@ class UserDao implements Dao<UserModel>{
     return result;
   }
 
+  @override
+  Future<int> update({required String whereClause, required Map<String, dynamic> data}) async {
+    final int? response = await appDatabase.update(tableName, whereClause: whereClause, data: data);
+    return response ?? 0;
+  }
+
 }

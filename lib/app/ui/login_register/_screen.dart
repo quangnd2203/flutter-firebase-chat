@@ -26,15 +26,9 @@ class LoginRegisterScreen extends BaseScreen<LoginRegisterController> {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
-                const SizedBox(
-                  height: 50,
-                ),
                 Image.asset(
                   AppImages.png('app_icon'),
-                  scale: 3,
-                ),
-                const SizedBox(
-                  height: 50,
+                  scale: 7,
                 ),
               ] +
               (controller.isRegister.value ? buildRegister() : buildLogin()),
@@ -73,7 +67,7 @@ class LoginRegisterScreen extends BaseScreen<LoginRegisterController> {
       ),
       WidgetButton(
         labelText: 'login'.tr,
-        onPressed: () => null,
+        onPressed: controller.loginNormal,
       ),
       const SizedBox(
         height: 16,

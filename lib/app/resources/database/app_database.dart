@@ -73,6 +73,18 @@ class AppDataBase {
     return result;
   }
 
+  Future<int?> update(String tableName, {required String whereClause, required Map<String, dynamic> data}) async {
+    logger.d('UPDATE: $tableName\nDATA: $data');
+    int? success;
+    try{
+      success = (await Backendless.data.of(tableName).update(whereClause, data)) ?? 0;
+      logger.i('RESPONSE: $success');
+    } on Exception catch (e) {
+      _handleError(e);
+    }
+    return success;
+  }
+
   /// Hàm này dùng để bắt lỗi khi gọi query các bảng ở trên Backendless hoặc lỗi hệ thống bất ngờ.
   ///
   /// BackendlessException: Object errors Backendless định nghĩa.

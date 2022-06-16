@@ -3,6 +3,8 @@
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
+import '../resources/resources.dart';
+
 class AppPrefs {
   AppPrefs._();
 
@@ -25,15 +27,19 @@ class AppPrefs {
 
   static String? get accessToken => _box.read('accessToken');
 
-  // static set user(Apps? _user) {
-  //   _box.write('user', _user);
-  // }
-  //
-  // static Apps? get user {
-  //   final _ = _box.read('user');
-  //   if (_ == null) return null;
-  //   return _ is Apps ? _ : Apps.fromJson(_box.read('user'));
-  // }
+  static set user(UserModel? user) {
+    _box.write('user', user);
+  }
+
+  static UserModel? get user {
+    final data = _box.read('user');
+
+    UserModel? model;
+    if(data != null){
+      model = UserModel.fromJson(_box.read<Map<String,dynamic>>('user')!);
+    }
+    return model;
+  }
 
   static Stream get watchUser => _userBehavior.stream;
 }

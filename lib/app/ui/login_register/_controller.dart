@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 
 import '../../resources/resources.dart';
 import '../../utils/app_utils.dart';
-import '../../utils/utils.dart';
 import '../ui.dart';
 
 class LoginRegisterController extends BaseController {
@@ -36,8 +35,7 @@ class LoginRegisterController extends BaseController {
       final dynamic next = await confirm();
       if (next == true) {
         setLoading(true);
-        final NetworkState<UserModel?> networkState = await userRepository
-            .register(
+        final NetworkState<UserModel?> networkState = await userRepository.register(
           email: userNameController.text,
           password: passwordController.text,
         );
@@ -47,6 +45,22 @@ class LoginRegisterController extends BaseController {
         } else {
           notification(networkState.message!);
         }
+      }
+    }
+  }
+
+  Future<void> loginNormal() async {
+    if(formKey.currentState!.validate()) {
+      setLoading(true);
+      final NetworkState<UserModel?> networkState = await userRepository.loginNormal(
+        email: userNameController.text,
+        password: passwordController.text,
+      );
+      setLoading(false);
+      if (networkState.isSuccess) {
+        AppUtils.toast('Success');
+      } else {
+        notification(networkState.message!);
       }
     }
   }

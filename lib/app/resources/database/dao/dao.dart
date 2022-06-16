@@ -13,4 +13,6 @@ abstract class Dao<T>{
   Future<List<T>> read({DataQueryBuilder? queryBuilder});
 
   Future<T?> save({required Map<String, dynamic> data, bool isUpsert = false});
+
+  Future<int> update({required String whereClause, required Map<String, dynamic> data});
 }
