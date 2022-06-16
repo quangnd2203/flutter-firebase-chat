@@ -13,6 +13,7 @@ class UserModel {
     this.name,
     this.fcmToken,
     this.email,
+    this.isNewUser,
   });
 
   UserModel.fromJson(Map<String, dynamic> json) {
@@ -22,6 +23,7 @@ class UserModel {
     name = json['name'] as String?;
     fcmToken = json['fcmToken'] as String?;
     email = json['email'] as String?;
+    isNewUser = json['isNewUser'] as bool?;
   }
 
   String? uid;
@@ -30,6 +32,7 @@ class UserModel {
   String? name;
   String? fcmToken;
   String? email;
+  bool? isNewUser;
 
   UserModel copyWith({
     String? uid,
@@ -38,6 +41,7 @@ class UserModel {
     String? name,
     String? fcmToken,
     String? email,
+    bool? isNewUser,
   }) =>
       UserModel(
         uid: uid ?? this.uid,
@@ -46,6 +50,7 @@ class UserModel {
         name: name ?? this.name,
         fcmToken: fcmToken ?? this.fcmToken,
         email: email ?? this.email,
+        isNewUser: isNewUser ?? this.isNewUser,
       );
 
   Map<String, dynamic> toJson() {
@@ -56,6 +61,7 @@ class UserModel {
     map['name'] = name;
     map['fcmToken'] = fcmToken;
     map['email'] = email;
+    map['isNewUser'] = isNewUser;
     return map;
   }
 }

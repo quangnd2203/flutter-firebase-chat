@@ -1,4 +1,7 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
+import '../widgets/dialog/dialog.dart';
 
 class BaseController extends GetxController {
   RxBool loading = false.obs;
@@ -10,33 +13,12 @@ class BaseController extends GetxController {
       loading.value = false;
   }
 
-  // Future<bool> showRequestConfirm(
-  //     {@required String content,
-  //     String keyTitle,
-  //     bool transTitle = true,
-  //     bool transContent = false,
-  //     Function actionCancel,
-  //     Function actionConfirm}) async {
-  //   return await Get.dialog(DialogConfirm(
-  //     keyTitle: keyTitle,
-  //     actionCancel: actionCancel,
-  //     transTitle: transTitle,
-  //     transContent: transContent,
-  //     content: content,
-  //     actionConfirm: actionConfirm,
-  //   ));
-  // }
-  //
-  // Future<dynamic> showNotification(
-  //     {@required String keyTitle,
-  //     bool trans = true,
-  //     String keyAction,
-  //     Function action}) async {
-  //   await Get.dialog(DialogNotification(
-  //     keyTitle: keyTitle,
-  //     action: action,
-  //     trans: trans,
-  //     keyAction: keyAction,
-  //   ));
-  // }
+  Future<bool?> confirm([String title = 'system_confirm_title']) async {
+    final bool? success = await Get.dialog(WidgetDialogConfirm(title: title.tr));
+    return success;
+  }
+
+  Future<bool?> notification(String title) async {
+    return Get.dialog(WidgetDialogNotification(title: title));
+  }
 }

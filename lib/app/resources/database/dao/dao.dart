@@ -11,4 +11,6 @@ abstract class Dao<T>{
   late AppDataBase appDatabase;
 
   Future<List<T>> read({DataQueryBuilder? queryBuilder});
+
+  Future<T?> save({required Map<String, dynamic> data, bool isUpsert = false});
 }

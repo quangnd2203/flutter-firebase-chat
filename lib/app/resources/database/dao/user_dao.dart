@@ -32,4 +32,14 @@ class UserDao implements Dao<UserModel>{
     return result;
   }
 
+  @override
+  Future<UserModel?> save({required Map<String, dynamic> data, bool isUpsert = false}) async {
+    UserModel? result;
+    final Map<dynamic, dynamic>? response = await appDatabase.save(tableName, data: data, isUpsert: isUpsert);
+    if(response != null){
+      result = UserModel.fromJson(Map<String, dynamic>.from(response));
+    }
+    return result;
+  }
+
 }

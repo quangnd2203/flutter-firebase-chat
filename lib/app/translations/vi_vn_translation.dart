@@ -10,4 +10,12 @@ final Map<String, String> viVN = <String, String>{
   'register_re_password':'Nhập lại mật khẩu',
   'user_exist':'Người dùng đã tồn tại!',
   'system_errors':'Lỗi hệ thống!',
+  'home_agree':'Đồng ý',
+  'home_skip':'Bỏ qua',
+  'system_confirm_title':'Xác nhận tiếp tục',
+  'valid_enter':'Trường này là bắt buộc!',
+  'valid_email':'Email không hợp lệ!',
+  'valid_phone':'Số điện thoại không hợp lệ!',
+  'valid_password':'Mật khẩu không đúng!',
+  'valid_password_confirm':'Nhập lại mật khẩu không đúng!',
 };

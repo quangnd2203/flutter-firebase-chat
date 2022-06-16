@@ -2,15 +2,17 @@ import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 
 import '../../resources/resources.dart';
+import '../../utils/app_utils.dart';
+import '../../utils/utils.dart';
 import '../ui.dart';
 
 class LoginRegisterController extends BaseController {
-  TextEditingController userNameController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
-  TextEditingController rePasswordController = TextEditingController();
-  UserRepository userRepository = UserRepository();
-
-  RxBool isRegister = false.obs;
+  final TextEditingController userNameController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+  final TextEditingController rePasswordController = TextEditingController();
+  final UserRepository userRepository = UserRepository();
+  final GlobalKey<FormState> formKey = GlobalKey();
+  final RxBool isRegister = false.obs;
 
   @override
   Future<void> onInit() async {
@@ -21,6 +23,7 @@ class LoginRegisterController extends BaseController {
     userNameController.text = '';
     passwordController.text = '';
     rePasswordController.text = '';
+    formKey.currentState!.reset();
   }
 
   void changeStateLoginRegister() {
@@ -29,9 +32,22 @@ class LoginRegisterController extends BaseController {
   }
 
   Future<void> registerAccount() async {
-    final NetworkState<bool?> networkState = await userRepository.register(
-      email: userNameController.text,
-      password: passwordController.text,
-    );
+    if(formKey.currentState!.validate()) {
+      final dynamic next = await confirm();
+      if (next == true) {
+        setLoading(true);
+        final NetworkState<UserModel?> networkState = await userRepository
+            .register(
+          email: userNameController.text,
+          password: passwordController.text,
+        );
+        setLoading(false);
+        if (networkState.isSuccess) {
+          AppUtils.toast('Success');
+        } else {
+          notification(networkState.message!);
+        }
+      }
+    }
   }
 }

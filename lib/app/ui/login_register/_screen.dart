@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../constants/constants.dart';
+import '../../utils/utils.dart';
 import '../ui.dart';
 
 class LoginRegisterScreen extends BaseScreen<LoginRegisterController> {
@@ -20,21 +21,24 @@ class LoginRegisterScreen extends BaseScreen<LoginRegisterController> {
     return SingleChildScrollView(
       physics: const BouncingScrollPhysics(),
       padding: const EdgeInsets.all(16),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: <Widget>[
-              const SizedBox(
-                height: 50,
-              ),
-              Image.asset(
-                AppImages.png('app_icon'),
-                scale: 3,
-              ),
-              const SizedBox(
-                height: 50,
-              ),
-            ] +
-            (controller.isRegister.value ? buildRegister() : buildLogin()),
+      child: Form(
+        key: controller.formKey,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+                const SizedBox(
+                  height: 50,
+                ),
+                Image.asset(
+                  AppImages.png('app_icon'),
+                  scale: 3,
+                ),
+                const SizedBox(
+                  height: 50,
+                ),
+              ] +
+              (controller.isRegister.value ? buildRegister() : buildLogin()),
+        ),
       ),
     );
   }
@@ -52,7 +56,7 @@ class LoginRegisterScreen extends BaseScreen<LoginRegisterController> {
         controller: controller.userNameController,
         labelText: 'login_username'.tr,
         hintText: 'example@gmail.com',
-        obscureText: true,
+        validator: AppValid.validateEmail,
       ),
       const SizedBox(
         height: 16,
@@ -62,6 +66,7 @@ class LoginRegisterScreen extends BaseScreen<LoginRegisterController> {
         labelText: 'login_password'.tr,
         hintText: 'Asdf1234!',
         obscureText: true,
+        validator: AppValid.validatePassword,
       ),
       const SizedBox(
         height: 16,
@@ -93,6 +98,7 @@ class LoginRegisterScreen extends BaseScreen<LoginRegisterController> {
         controller: controller.userNameController,
         labelText: 'login_username'.tr,
         hintText: 'example@gmail.com',
+        validator: AppValid.validateEmail,
       ),
       const SizedBox(
         height: 16,
@@ -102,6 +108,7 @@ class LoginRegisterScreen extends BaseScreen<LoginRegisterController> {
         labelText: 'login_password'.tr,
         hintText: 'Asdf1234!',
         obscureText: true,
+        validator: AppValid.validatePassword,
       ),
       const SizedBox(
         height: 16,
@@ -111,6 +118,7 @@ class LoginRegisterScreen extends BaseScreen<LoginRegisterController> {
         labelText: 'register_re_password'.tr,
         hintText: 'Asdf1234!',
         obscureText: true,
+        validator: (String? value) => AppValid.validatePasswordConfirm(controller.passwordController, value),
       ),
       const SizedBox(
         height: 16,

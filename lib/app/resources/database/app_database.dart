@@ -61,16 +61,16 @@ class AppDataBase {
   }
 
   /// Hàm này dùng để lưu đối tượng vào bảng.
-  Future<Map<dynamic, dynamic>?> save(String tableName, {required Map<dynamic, dynamic> data, bool isUpsert = false}) async {
+  Future<Map<dynamic, dynamic>?> save(String tableName, {required Map<String, dynamic> data, bool isUpsert = false}) async {
     logger.d('SAVE: $tableName\nDATA: $data');
     Map<dynamic, dynamic>? result;
     try{
       result = await Backendless.data.of(tableName).save(data, isUpsert: isUpsert);
       logger.i('RESPONSE: $result');
-      return result;
     } on Exception catch (e) {
       _handleError(e);
     }
+    return result;
   }
 
   /// Hàm này dùng để bắt lỗi khi gọi query các bảng ở trên Backendless hoặc lỗi hệ thống bất ngờ.
