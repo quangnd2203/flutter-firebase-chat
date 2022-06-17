@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import '../extensions/extensions.dart';
-import '../utils/app_utils.dart';
 
 class AppColors {
   AppColors._();
@@ -10,5 +9,7 @@ class AppColors {
   static Color get text => HexColor.fromHex('#262F4D');
 
   static Color get grey => HexColor.fromHex('#B5BED3');
+
+  static Color get pink => HexColor.fromHex('#FF64D0');
 
 }

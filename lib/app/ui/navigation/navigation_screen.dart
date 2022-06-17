@@ -10,10 +10,19 @@ class NavigationScreen extends BaseScreen<NavigationController> {
   Widget? builder() {
     // TODO: implement builder
     return Scaffold(
-      body: MessageScreen(),
+      body: FadeIndexedStack(
+        index: controller.index.value,
+        duration: const Duration(milliseconds: 300),
+        children: <Widget>[
+          MessageScreen(),
+          const SizedBox(),
+          const SizedBox(),
+        ],
+      ),
       backgroundColor: Colors.white,
-      bottomNavigationBar: Padding(
-        padding: const EdgeInsets.fromLTRB(16, 0, 16, 20),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButton: Padding(
+        padding: const EdgeInsets.fromLTRB(50, 0, 50, 32),
         child: CustomNavigationBar(
           scaleFactor: 0.25,
           elevation: 4,
@@ -39,12 +48,4 @@ class NavigationScreen extends BaseScreen<NavigationController> {
       ),
     );
   }
-
-  // Widget _buildBody() {
-  //   return Column(
-  //     children: <Widget>[
-  //       //
-  //     ],
-  //   );
-  // }
 }

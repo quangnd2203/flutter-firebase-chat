@@ -1,4 +1,5 @@
 export 'dialog/dialog.dart';
+export 'fade_indexed_stack.dart';
 export 'widget_button.dart';
 export 'widget_input.dart';
 export 'widget_keyboard_dismiss.dart';
