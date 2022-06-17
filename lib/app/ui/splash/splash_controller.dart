@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 
+import '../../resources/resources.dart';
 import '../../routes/app_pages.dart';
 import '../ui.dart';
 
@@ -7,13 +8,18 @@ class SplashController extends BaseController {
   @override
   Future<void> onInit() async {
     super.onInit();
-    // await getConfig();
-    // await getProfile();
+    await getConfig();
+    await getProfile();
   }
 
   Future<void> getConfig() async {}
 
   Future<void> getProfile() async {
-    Get.offAllNamed(Routes.NAVIGATION);
+    final NetworkState<UserModel?> networkState = await UserRepository().authenticationUser();
+    if (networkState.isSuccess) {
+      Get.offAllNamed(Routes.NAVIGATION);
+    } else {
+      Get.offAllNamed(Routes.LOGIN_REGISTER);
+    }
   }
 }

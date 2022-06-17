@@ -72,7 +72,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      initialRoute: Routes.LOGIN_REGISTER,
+      initialRoute: Routes.SPLASH,
       defaultTransition: Transition.cupertino,
       getPages: AppPages.pages,
       locale: const Locale('vi', 'VN'),
