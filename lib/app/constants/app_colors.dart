@@ -5,16 +5,10 @@ import '../utils/app_utils.dart';
 class AppColors {
   AppColors._();
 
-  static Color get primary => Colors.blue;
+  static Color get primary => HexColor.fromHex('#4A74EC');
+  
+  static Color get text => HexColor.fromHex('#262F4D');
 
-  static Color get primaryDark => HexColor.fromHex('#FF6915');
-
-  static Color get primaryLight => HexColor.fromHex('#FF6915');
-
-  static Color get text => AppUtils.valueByMode(values: <Color>[textLight, textLight]);
-
-  static Color get textDark => Colors.white;
-
-  static Color get textLight => Colors.black;
+  static Color get grey => HexColor.fromHex('#B5BED3');
 
 }

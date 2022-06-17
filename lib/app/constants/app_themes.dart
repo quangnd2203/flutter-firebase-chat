@@ -6,6 +6,7 @@ import 'constants.dart';
 ThemeData normalTheme(BuildContext context) {
   return ThemeData(
     fontFamily: AppTextStyles.fontFamilyHkGrotesk,
-    brightness: AppUtils.valueByMode(values: <Brightness>[Brightness.light, Brightness.dark]),
+    scaffoldBackgroundColor: Colors.white,
+    brightness: Brightness.light
   );
 }

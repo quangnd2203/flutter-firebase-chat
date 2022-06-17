@@ -45,6 +45,7 @@ dependencies:
 
   #Other
   keyboard_dismisser: ^3.0.0
+  custom_navigation_bar: ^0.8.2
 
 flutter:
   uses-material-design: true
