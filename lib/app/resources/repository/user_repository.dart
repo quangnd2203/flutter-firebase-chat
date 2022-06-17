@@ -18,7 +18,7 @@ class UserRepository {
 
   final UserRepositoryHelper helper = UserRepositoryHelper();
 
-  Future<NetworkState<UserModel?>> register({required String email, required String password, String? accountType}) async {
+  Future<NetworkState<UserModel?>> register({required String email, required String password, required String name, String? accountType}) async {
     final bool isDisconnect = await WifiService.isDisconnect();
     if (isDisconnect) {
       return NetworkState<UserModel?>.withDisconnect();
@@ -31,17 +31,32 @@ class UserRepository {
       );
       final bool userNotExist = listUserExist.isEmpty;
 
+      final String? fcmToken = await FirebaseCloudMessaging.getFCMToken();
+      final String accessToken = BackendService().generateToken();
+      final String uid = BackendService().generateGUID();
+      final String passwordEncode = BackendService().convertPasswordTo256(password);
+
       if(userNotExist){
-        helper.saveUser(
+        userModel = await helper.saveUser(
             UserModel(
-            uid: BackendService().generateGUID(),
+            uid: uid,
+            name: name,
             email: email,
-            password: BackendService().convertPasswordTo256(password),
+            isNewUser: false,
+            accessToken: accessToken,
+            password: passwordEncode,
             accountType: accountType,
-            fcmToken: await FirebaseCloudMessaging.getFCMToken(),
+            fcmToken: fcmToken,
           ),
         );
-        AppPrefs.user = userModel;
+        if(userModel != null){
+          userModel.fcmToken = null;
+          userModel.password = null;
+          userModel.accessToken = null;
+
+          AppPrefs.user = userModel;
+          AppPrefs.accessToken = accessToken;
+        }
       }
       return NetworkState<UserModel>(
         status: userModel != null ? AppEndpoint.SUCCESS : AppEndpoint.FAILED,
@@ -59,18 +74,19 @@ class UserRepository {
       return NetworkState<UserModel?>.withDisconnect();
     }
     try {
-      final List<String> properties = <String>['uid', 'name', 'email', 'isNewUser', 'fcmToken', 'accountType'];
       final String havingClause = "email='$email' && password='${BackendService().convertPasswordTo256(password)}'";
 
       final List<UserModel> users = await helper.getListUser(
-        properties: properties,
         whereClause: havingClause,
       );
 
       if(users.isNotEmpty){
-        users.first.fcmToken = await FirebaseCloudMessaging.getFCMToken();
-        await helper.updateFcmToken(users.first.fcmToken!, updateClause: havingClause);
+        final String? fcmToken = await FirebaseCloudMessaging.getFCMToken();
+        final String accessToken = BackendService().generateToken();
+        await helper.updateFcmToken(fcmToken!, updateClause: havingClause);
+        await helper.updateAccessToken(accessToken, updateClause: havingClause);
         AppPrefs.user = users.first;
+        AppPrefs.accessToken = accessToken;
       }
 
       return NetworkState<UserModel>(
@@ -89,33 +105,44 @@ class UserRepository {
       return NetworkState<UserModel?>.withDisconnect();
     }
     try {
-      final List<String> properties = <String>['uid', 'name', 'email', 'isNewUser', 'fcmToken', 'accountType'];
       final String havingClause = "email='${loginSocialResult.id}'";
 
       final List<UserModel> users = await helper.getListUser(
-        properties: properties,
         whereClause: havingClause,
       );
       final bool userNotExist = users.isEmpty;
       UserModel? userModel;
+
+      final String? fcmToken = await FirebaseCloudMessaging.getFCMToken();
+      final String accessToken = BackendService().generateToken();
+      final String uid = BackendService().generateGUID();
+
       if(userNotExist){
         userModel = await helper.saveUser(
           UserModel(
-            uid: BackendService().generateGUID(),
+            uid: uid,
             email: loginSocialResult.id.toString(),
             accountType: AppUtils.getNameOfEnumValue(type),
             name: loginSocialResult.fullName,
-            fcmToken: await FirebaseCloudMessaging.getFCMToken(),
+            fcmToken: fcmToken,
+            accessToken: accessToken,
             isNewUser: loginSocialResult.fullName == null,
           ),
         );
       } else{
         userModel = users.first;
+        await helper.updateFcmToken(fcmToken!, updateClause: havingClause);
       }
 
-      userModel!.fcmToken = await FirebaseCloudMessaging.getFCMToken();
-      await helper.updateFcmToken(userModel.fcmToken!, updateClause: havingClause);
-      AppPrefs.user = userModel;
+      if(userModel != null){
+        userModel.fcmToken = null;
+        userModel.password = null;
+        userModel.accessToken = null;
+
+        await helper.updateAccessToken(accessToken, updateClause: havingClause);
+        AppPrefs.user = userModel;
+        AppPrefs.accessToken = accessToken;
+      }
 
       return NetworkState<UserModel>(
         status: userModel != null ? AppEndpoint.SUCCESS : AppEndpoint.FAILED,
@@ -123,6 +150,58 @@ class UserRepository {
         message: userModel != null ? 'success' : 'system_errors'.tr,
       );
     } on Exception catch(e) {
+      return NetworkState<UserModel?>.withError(e);
+    }
+  }
+
+  Future<NetworkState<UserModel?>> authenticationUser() async {
+    final bool isDisconnect = await WifiService.isDisconnect();
+    if (isDisconnect) {
+      return NetworkState<UserModel?>.withDisconnect();
+    }
+    try{
+      UserModel? userModel;
+      final String? accessToken = AppPrefs.accessToken;
+      final List<UserModel> listUserExist = await helper.getListUser(
+        whereClause: "accessToken='$accessToken'",
+      );
+
+      if(listUserExist.isNotEmpty){
+        userModel = listUserExist.first;
+        AppPrefs.user = userModel;
+      }
+
+      return NetworkState<UserModel>(
+        status: userModel != null ? AppEndpoint.SUCCESS : AppEndpoint.FAILED,
+        data: userModel,
+        message: userModel != null ? 'success' : 'system_errors'.tr,
+      );
+    }on Exception catch(e) {
+      return NetworkState<UserModel?>.withError(e);
+    }
+  }
+
+  Future<NetworkState<UserModel?>> getUserById(String uid) async {
+    final bool isDisconnect = await WifiService.isDisconnect();
+    if (isDisconnect) {
+      return NetworkState<UserModel?>.withDisconnect();
+    }
+    try{
+      UserModel? userModel;
+      final List<UserModel> listUserExist = await helper.getListUser(
+        whereClause: "uid='$uid'",
+      );
+
+      if(listUserExist.isNotEmpty){
+        userModel = listUserExist.first;
+      }
+
+      return NetworkState<UserModel>(
+        status: userModel != null ? AppEndpoint.SUCCESS : AppEndpoint.FAILED,
+        data: userModel,
+        message: userModel != null ? 'success' : 'system_errors'.tr,
+      );
+    }on Exception catch(e) {
       return NetworkState<UserModel?>.withError(e);
     }
   }

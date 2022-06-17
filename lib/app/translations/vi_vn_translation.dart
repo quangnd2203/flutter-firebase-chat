@@ -2,7 +2,8 @@ final Map<String, String> viVN = <String, String>{
   'onboard_title' : 'Welcome to Nitro Tech Asia',
   'onboard_content' : 'Join over 100 people who use the App to talk with colleagues and friends',
   'login':'Đăng nhập',
-  'login_username':'Tên đăng nhập',
+  'login_email':'Email của bạn',
+  'login_name':'Tên của bạn',
   'login_failed':'Sai tên đăng nhập hoặc mật khẩu!',
   'login_password':'Mật khẩu',
   'login_not_account':'Bạn chưa có tài khoản ?',
@@ -20,4 +21,5 @@ final Map<String, String> viVN = <String, String>{
   'valid_password':'Mật khẩu không đúng!',
   'valid_password_confirm':'Nhập lại mật khẩu không đúng!',
   'login_social_another':'Hoặc đăng nhập với',
+  'app_slogan':'Nói lời yêu thương',
 };

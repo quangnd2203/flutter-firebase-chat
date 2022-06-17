@@ -10,6 +10,8 @@ class UserRepositoryHelper{
 
   static UserRepositoryHelper? _instance;
 
+  static const List<String> _defaultProperties = <String>['uid', 'name', 'email', 'isNewUser', 'accountType'];
+
   Future<void> updateFcmToken(String fcmToken, {required String updateClause}) async {
     final String whereClauseDelete = "fcmToken = '$fcmToken'";
     await UserDao().update(whereClause: whereClauseDelete, data: <String, dynamic>{
@@ -20,10 +22,10 @@ class UserRepositoryHelper{
     });
   }
 
-  Future<List<UserModel>> getListUser({String whereClause = '', List<String>? properties}) async {
+  Future<List<UserModel>> getListUser({String whereClause = '', List<String> properties = _defaultProperties}) async {
     List<UserModel> result;
     final DataQueryBuilder query = DataQueryBuilder();
-    query.properties = properties ?? <String>[];
+    query.properties = properties;
     query.havingClause = whereClause;
     result = await UserDao().read(queryBuilder: query);
     return result;
@@ -35,5 +37,11 @@ class UserRepositoryHelper{
     data.removeWhere((String key, dynamic value) => value == null);
     userModel = await UserDao().save(data: data);
     return userModel;
+  }
+
+  Future<void> updateAccessToken(String accessToken, {required String updateClause}) async {
+    await UserDao().update(whereClause: updateClause, data: <String, dynamic>{
+      'accessToken': accessToken,
+    });
   }
 }

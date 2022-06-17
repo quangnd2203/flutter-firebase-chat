@@ -1,3 +1,7 @@
+import 'dart:convert';
+
+import 'package:crypto/crypto.dart';
+
 import '../../utils/app_utils.dart';
 
 class BackendService {
@@ -18,5 +22,14 @@ class BackendService {
   String generateGUID() {
     final DateTime now = DateTime.now();
     return 'uid-${now.microsecondsSinceEpoch.toString()}';
+  }
+
+  String generateToken(){
+    final List<int> bytes = <int>[];
+    for(int i = 0; i < 9; i++){
+      bytes.addAll(utf8.encode(generateGUID()));
+    }
+    final String token = base64.encode(bytes);
+    return token;
   }
 }

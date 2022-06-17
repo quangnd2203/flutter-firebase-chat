@@ -69,7 +69,7 @@ class LoginRegisterScreen extends BaseScreen<LoginRegisterController> {
       ),
       WidgetInput(
         controller: controller.userNameController,
-        labelText: 'login_username'.tr,
+        labelText: 'login_email'.tr,
         hintText: 'example@gmail.com',
         validator: AppValid.validateEmail,
       ),
@@ -111,9 +111,18 @@ class LoginRegisterScreen extends BaseScreen<LoginRegisterController> {
       ),
       WidgetInput(
         controller: controller.userNameController,
-        labelText: 'login_username'.tr,
+        labelText: 'login_email'.tr,
         hintText: 'example@gmail.com',
         validator: AppValid.validateEmail,
+      ),
+      const SizedBox(
+        height: 16,
+      ),
+      WidgetInput(
+        controller: controller.nameController,
+        labelText: 'login_name'.tr,
+        hintText: 'example1234',
+        validator: AppValid.validateFullName,
       ),
       const SizedBox(
         height: 16,

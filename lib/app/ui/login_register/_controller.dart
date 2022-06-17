@@ -7,6 +7,7 @@ import '../ui.dart';
 
 class LoginRegisterController extends BaseController {
   final TextEditingController userNameController = TextEditingController();
+  final TextEditingController nameController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController rePasswordController = TextEditingController();
   final UserRepository userRepository = UserRepository();
@@ -40,6 +41,7 @@ class LoginRegisterController extends BaseController {
         final NetworkState<UserModel?> networkState = await userRepository.register(
           email: userNameController.text,
           password: passwordController.text,
+          name: nameController.text,
         );
         setLoading(false);
         if (networkState.isSuccess) {

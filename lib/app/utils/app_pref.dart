@@ -28,7 +28,7 @@ class AppPrefs {
   static String? get accessToken => _box.read('accessToken');
 
   static set user(UserModel? user) {
-    _box.write('user', user);
+    _box.write('user', user?.toJson());
   }
 
   static UserModel? get user {
