@@ -12,13 +12,11 @@ class MessageScreen extends BaseScreen<MessageController> {
   Widget? builder() {
     return Padding(
       padding: EdgeInsets.fromLTRB(16, viewPaddingTop, 16, 0),
-      child: Expanded(
-        child: Column(
-          children: <Widget>[
-            const Icon(Icons.search, size: 30,),
-            Text('Message', style: AppTextStyles.normalBold.copyWith(fontSize: 45),),
-          ],
-        ),
+      child: Column(
+        children: <Widget>[
+          const Icon(Icons.search, size: 30,),
+          Text('Message', style: AppTextStyles.normalBold.copyWith(fontSize: 45),),
+        ],
       ),
     );
   }

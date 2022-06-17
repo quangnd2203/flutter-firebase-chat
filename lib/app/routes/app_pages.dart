@@ -15,7 +15,10 @@ class AppPages {
     GetPage(
       name: Routes.NAVIGATION,
       page: () => NavigationScreen(),
-      binding: NavigationBinding(),
+      bindings: [
+        MessageBinding(),
+        NavigationBinding(),
+      ]
     ),
     GetPage(
       name: Routes.LOGIN_REGISTER,
