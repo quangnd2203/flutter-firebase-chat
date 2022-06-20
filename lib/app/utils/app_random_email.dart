@@ -23,9 +23,15 @@ class AppEmail{
 
   static AppEmail? _instance;
 
-  String createEmail(){
-    final String email = '${getRandomElement(FIRST_NAME).toLowerCase()}${getRandomElement(LAST_NAME).toLowerCase()}${getRandomNumber(100000000)}@${getRandomElement(domains)}';
-    return email;
+  Map<String, String> createEmailAndName(){
+    final String firstName = getRandomElement(FIRST_NAME);
+    final String lastName = getRandomElement(LAST_NAME);
+    final String email = '${firstName.toLowerCase()}_${lastName.toLowerCase()}_${getRandomNumber(100000000)}@${getRandomElement(domains)}';
+    final String name = '$firstName $lastName';
+    return <String, String>{
+      'email': email,
+      'name': name,
+    };
   }
 
   static const List<String> domains = <String>['@gmail.com'];

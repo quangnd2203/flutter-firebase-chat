@@ -2,26 +2,18 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
 import '../../constants/constants.dart';
 import '../ui.dart';
-import 'widget/widget_conversation.dart';
+import 'widget/widget_contact.dart';
 
-class MessageScreen extends BaseScreen<MessageController> {
+class ContactListScreen extends BaseScreen<ContactListController> {
+
   @override
   Widget? builder() {
-    return Stack(
-      children: <Widget>[
-        buildBody(),
-        Positioned(
-          right: 32,
-          bottom: 90 + viewPaddingTop,
-          child: FloatingActionButton(
-            onPressed: () => null,
-            backgroundColor: AppColors.pink,
-            child: const Icon(Icons.add),
-          ),
-        ),
-      ],
+    return Scaffold(
+      backgroundColor: Colors.white,
+      body: buildBody(),
     );
   }
 
@@ -55,15 +47,15 @@ class MessageScreen extends BaseScreen<MessageController> {
               expandedTitleScale: 1.25,
               titlePadding: const EdgeInsets.only(left: 16, bottom: 10, top: 16),
               title: Text(
-                'message'.tr,
+                'contact_list'.tr,
                 style: AppTextStyles.normalBold.copyWith(fontSize: 35),
               ),
             ),
           ),
           SliverList(
             delegate: SliverChildBuilderDelegate(
-              (_, int index) {
-                return const WidgetConversation();
+                  (_, int index) {
+                return const WidgetContact();
               },
               childCount: controller.currentOffset.value,
             ),
@@ -73,7 +65,7 @@ class MessageScreen extends BaseScreen<MessageController> {
               padding: EdgeInsets.all(16),
               child: Center(
                   child: CircularProgressIndicator(
-              )),
+                  )),
             ),
           ),
           const SliverToBoxAdapter(

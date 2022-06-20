@@ -22,4 +22,6 @@ final Map<String, String> viVN = <String, String>{
   'valid_password_confirm':'Nhập lại mật khẩu không đúng!',
   'login_social_another':'Hoặc đăng nhập với',
   'app_slogan':'Nói lời yêu thương',
+  'contact_list':'Danh bạ',
+  'message':'Tin nhắn'
 };

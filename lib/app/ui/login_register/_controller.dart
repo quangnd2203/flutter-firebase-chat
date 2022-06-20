@@ -19,7 +19,6 @@ class LoginRegisterController extends BaseController {
   @override
   Future<void> onInit() async {
     super.onInit();
-    await createUser();
   }
 
   void clearTextField() {
@@ -104,9 +103,4 @@ class LoginRegisterController extends BaseController {
     }
   }
 
-  // Future<void> createUser() async {
-  //   for(int i = 0; i < 1; i++){
-  //     UserRepository().register(email: AppEmail().createEmail(), password: 'Aa22032001!', name: AppEmail().createEmail());
-  //   }
-  // }
 }

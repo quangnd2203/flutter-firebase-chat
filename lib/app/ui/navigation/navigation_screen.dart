@@ -15,7 +15,7 @@ class NavigationScreen extends BaseScreen<NavigationController> {
         duration: const Duration(milliseconds: 300),
         children: <Widget>[
           MessageScreen(),
-          const SizedBox(),
+          ContactListScreen(),
           const SizedBox(),
         ],
       ),

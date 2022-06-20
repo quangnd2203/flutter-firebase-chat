@@ -18,6 +18,7 @@ class AppPages {
       bindings: [
         MessageBinding(),
         NavigationBinding(),
+        ContactListBinding(),
       ]
     ),
     GetPage(
