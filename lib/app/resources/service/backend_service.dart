@@ -1,7 +1,4 @@
 import 'dart:convert';
-
-import 'package:crypto/crypto.dart';
-
 import '../../utils/app_utils.dart';
 
 class BackendService {

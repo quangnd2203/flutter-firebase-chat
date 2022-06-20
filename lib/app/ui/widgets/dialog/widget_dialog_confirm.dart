@@ -19,7 +19,7 @@ class WidgetDialogConfirm extends StatelessWidget {
           color: Colors.transparent,
           child: Column(
             mainAxisSize: MainAxisSize.min,
-            children: [
+            children: <Widget>[
               const SizedBox(
                 height: 24,
               ),
@@ -32,7 +32,7 @@ class WidgetDialogConfirm extends StatelessWidget {
                 height: 20,
               ),
               Row(
-                children: [
+                children: <Widget>[
                   Expanded(
                     child: InkWell(
                       onTap: () => Get.back(result: false),

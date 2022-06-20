@@ -16,7 +16,9 @@ class MessageScreen extends BaseScreen<MessageController> {
           right: 32,
           bottom: 90 + viewPaddingTop,
           child: FloatingActionButton(
-            onPressed: () => null,
+            onPressed: () {
+
+            },
             backgroundColor: AppColors.pink,
             child: const Icon(Icons.add),
           ),

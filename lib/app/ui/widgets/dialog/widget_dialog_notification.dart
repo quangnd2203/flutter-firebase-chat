@@ -17,7 +17,7 @@ class WidgetDialogNotification extends StatelessWidget {
           color: Colors.transparent,
           child: Column(
             mainAxisSize: MainAxisSize.min,
-            children: [
+            children: <Widget>[
               const SizedBox(
                 height: 24,
               ),

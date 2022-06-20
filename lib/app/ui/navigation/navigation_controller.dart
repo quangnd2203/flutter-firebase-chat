@@ -1,7 +1,8 @@
 import 'dart:async';
 import 'package:get/get.dart';
 import '../../resources/resources.dart';
-import '../message/_binding.dart';
+import '../../routes/app_pages.dart';
+import '../../utils/utils.dart';
 import '../ui.dart';
 
 class NavigationController extends BaseController {
@@ -16,4 +17,9 @@ class NavigationController extends BaseController {
     // ignore: avoid_function_literals_in_foreach_calls
   }
 
+  void logout(){
+    AppPrefs.accessToken = null;
+    AppPrefs.user = null;
+    Get.offAllNamed(Routes.LOGIN_REGISTER);
+  }
 }
