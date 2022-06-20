@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../resources/resources.dart';
 import '../ui.dart';
 
 class ContactListController extends BaseController {
   final ScrollController scrollController = ScrollController();
 
-  RxInt currentOffset = 0.obs;
+  int currentOffset = 0;
 
   RxBool isShowSearch = false.obs;
+
+  RxList<UserModel> users = <UserModel>[].obs;
 
   @override
   Future<void> onInit() async {
@@ -24,16 +27,26 @@ class ContactListController extends BaseController {
   }
 
   void onScrollControllerListen() {
-    scrollController.addListener(() {
-      if (scrollController.position.maxScrollExtent <=
-          scrollController.offset + 100) {
-        currentOffset += 10;
+    scrollController.addListener(() async {
+      if (scrollController.position.maxScrollExtent == scrollController.offset) {
+        await loadMore();
       }
     });
   }
 
   Future<void> onRefresh() async {
-    await Future<void>.delayed(const Duration(seconds: 2));
-    currentOffset.value = 10;
+    currentOffset = 0;
+    users.clear();
+    users.addAll(await getUsers());
+  }
+
+  Future<List<UserModel>> getUsers() async {
+    final NetworkState<List<UserModel>> networkState = await UserRepository().getUsers(offset: currentOffset);
+    return networkState.data ?? <UserModel>[];
+  }
+
+  Future<void> loadMore() async {
+    currentOffset += 15;
+    users.addAll(await getUsers());
   }
 }

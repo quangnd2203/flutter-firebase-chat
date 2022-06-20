@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 
 import '../../../constants/constants.dart';
+import '../../../resources/resources.dart';
 
 class WidgetContact extends StatelessWidget {
-  const WidgetContact({Key? key}) : super(key: key);
+  const WidgetContact({Key? key, required this.user}) : super(key: key);
+  final UserModel user;
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +28,7 @@ class WidgetContact extends StatelessWidget {
             ),
             Expanded(
               child: Text(
-                'Nguyen Dang Quang',
+                user.name ?? '',
                 style: AppTextStyles.normalSemiBold.copyWith(fontSize: 18),
               ),
             ),

@@ -19,7 +19,7 @@ class ContactListScreen extends BaseScreen<ContactListController> {
 
   Widget buildBody() {
     return RefreshIndicator(
-      onRefresh: controller.onRefresh,
+      onRefresh: () => controller.onRefresh(),
       edgeOffset: 200,
       child: CustomScrollView(
         physics: const BouncingScrollPhysics(),
@@ -52,14 +52,15 @@ class ContactListScreen extends BaseScreen<ContactListController> {
               ),
             ),
           ),
-          SliverList(
-            delegate: SliverChildBuilderDelegate(
-                  (_, int index) {
-                return const WidgetContact();
-              },
-              childCount: controller.currentOffset.value,
+          if(controller.users.isNotEmpty)
+            SliverList(
+              delegate: SliverChildBuilderDelegate(
+                    (_, int index) {
+                  return WidgetContact(user: controller.users[index],);
+                },
+                childCount: controller.users.length,
+              ),
             ),
-          ),
           if(!controller.loading.value) const SliverToBoxAdapter(
             child: Padding(
               padding: EdgeInsets.all(16),

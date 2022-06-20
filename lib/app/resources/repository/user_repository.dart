@@ -206,4 +206,27 @@ class UserRepository {
       return NetworkState<UserModel?>.withError(e);
     }
   }
+
+  Future<NetworkState<List<UserModel>>> getUsers({int limit = 15, int offset = 0, String keyword = ''}) async {
+    final bool isDisconnect = await WifiService.isDisconnect();
+    if (isDisconnect) {
+      return NetworkState<List<UserModel>>.withDisconnect();
+    }
+    try{
+      UserModel? userModel;
+      final List<UserModel> listUserExist = await helper.getListUser(
+        whereClause: "name like '%$keyword%'",
+        limit: limit,
+        offset: offset
+      );
+
+      return NetworkState<List<UserModel>>(
+        status: AppEndpoint.SUCCESS,
+        data: listUserExist,
+        message: userModel != null ? 'success' : 'system_errors'.tr,
+      );
+    }on Exception catch(e) {
+      return NetworkState<List<UserModel>>.withError(e);
+    }
+  }
 }

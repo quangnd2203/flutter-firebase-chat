@@ -23,11 +23,19 @@ class UserRepositoryHelper{
       });
   }
 
-  Future<List<UserModel>> getListUser({String whereClause = '', List<String> properties = _defaultProperties}) async {
+  Future<List<UserModel>> getListUser({
+    String whereClause = '',
+    List<String> properties = _defaultProperties,
+    int limit = 15,
+    int offset = 0,
+  }) async {
+
     List<UserModel> result;
     final DataQueryBuilder query = DataQueryBuilder();
     query.properties = properties;
     query.havingClause = whereClause;
+    query.pageSize = limit;
+    query.offset = offset;
     result = await UserDao().read(queryBuilder: query);
     return result;
   }
