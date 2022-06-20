@@ -5,52 +5,15 @@ import '../../constants/constants.dart';
 import '../ui.dart';
 import 'widget/widget_conversation.dart';
 
-class MessageScreen extends BaseScreen<MessageController>{
-
+class MessageScreen extends BaseScreen<MessageController> {
   @override
   Widget? builder() {
     return Stack(
       children: <Widget>[
-        Padding(
-          padding: EdgeInsets.only(top: viewPaddingTop,),
-          child: Column(
-            children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    const Align(
-                      alignment: Alignment.centerRight,
-                      child: Icon(
-                        Icons.search,
-                        size: 30,
-                      ),
-                    ),
-                    Text(
-                      'Message',
-                      style: AppTextStyles.normalBold.copyWith(fontSize: 45),
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              Expanded(
-                child: ListView.builder(
-                  itemCount: 10,
-                  physics: const BouncingScrollPhysics(),
-                  padding: const EdgeInsets.only(bottom: 150, top: 10, left: 16, right: 16),
-                  itemBuilder: (BuildContext context, int index) => const WidgetConversation(),
-                ),
-              )
-            ],
-          ),
-        ),
+        buildBody(),
         Positioned(
           right: 32,
-          bottom: 100,
+          bottom: 90 + viewPaddingTop,
           child: FloatingActionButton(
             onPressed: () => null,
             backgroundColor: AppColors.pink,
@@ -61,4 +24,57 @@ class MessageScreen extends BaseScreen<MessageController>{
     );
   }
 
+  Widget buildBody() {
+    return CustomScrollView(
+      controller: controller.scrollController,
+      slivers: <Widget>[
+        SliverAppBar(
+          backgroundColor: Colors.white,
+          expandedHeight: 100,
+          stretch: true,
+          actions: <Widget>[
+            Icon(
+              Icons.search,
+              size: 30,
+              color: AppColors.text,
+            )
+          ],
+          automaticallyImplyLeading: false,
+          pinned: true,
+          floating: true,
+          flexibleSpace: FlexibleSpaceBar(
+            centerTitle: false,
+            expandedTitleScale: 1.25,
+            titlePadding: const EdgeInsets.only(left: 16, bottom: 10, top: 16),
+            title: Text(
+              'Message',
+              style: AppTextStyles.normalBold.copyWith(fontSize: 35),
+            ),
+          ),
+        ),
+        SliverList(
+          delegate: SliverChildBuilderDelegate(
+            (_, int index) {
+              return const WidgetConversation();
+            },
+            childCount: controller.currentOffset.value,
+          ),
+        ),
+        SliverToBoxAdapter(
+          child: Padding(
+            padding: const EdgeInsets.all(16),
+            child: Center(
+                child: CircularProgressIndicator(
+              color: AppColors.grey,
+            )),
+          ),
+        ),
+        const SliverToBoxAdapter(
+          child: SizedBox(
+            height: 150,
+          ),
+        )
+      ],
+    );
+  }
 }
