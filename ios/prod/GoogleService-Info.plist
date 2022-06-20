@@ -3,23 +3,23 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>722408477068-ohhpu6r6mlul1uj2h8u0m9k8atqokeol.apps.googleusercontent.com</string>
+	<string>1069607834406-ukgeis192c0vhthcj28gm1n4e8agdakh.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.722408477068-ohhpu6r6mlul1uj2h8u0m9k8atqokeol</string>
+	<string>com.googleusercontent.apps.1069607834406-ukgeis192c0vhthcj28gm1n4e8agdakh</string>
 	<key>ANDROID_CLIENT_ID</key>
-	<string>722408477068-1mjk1pf3619mk5k5o6shvqfqrteakkik.apps.googleusercontent.com</string>
+	<string>1069607834406-hl9u2d6qfjlcer86cr6ltl4sj9p3iubh.apps.googleusercontent.com</string>
 	<key>API_KEY</key>
-	<string>AIzaSyALRJvu84HTCt5F9ABCC9YEORyd9uYZqCY</string>
+	<string>AIzaSyB1-Pxi0P6GqrpYJBK1k3WX-NGj8k1R-_I</string>
 	<key>GCM_SENDER_ID</key>
-	<string>722408477068</string>
+	<string>1069607834406</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.ntamobile.getxpattern</string>
+	<string>com.ntamobile.flutter-chat-app</string>
 	<key>PROJECT_ID</key>
-	<string>getxpattern-892e7</string>
+	<string>flutter-chat-app-bdfc2</string>
 	<key>STORAGE_BUCKET</key>
-	<string>getxpattern-892e7.appspot.com</string>
+	<string>flutter-chat-app-bdfc2.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -31,6 +31,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:722408477068:ios:0e48a158b07180a7b706a9</string>
+	<string>1:1069607834406:ios:b308862f063e0e1b19e7e7</string>
 </dict>
 </plist>

@@ -7,7 +7,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
-	<string>flutter$(APP_ID_SUFFIX)</string>
+	<string>Flutter Chat App$(APP_ID_SUFFIX)</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -61,7 +61,7 @@
     		<string>Editor</string>
     		<key>CFBundleURLSchemes</key>
     		<array>
-	            <string>com.googleusercontent.apps.722408477068-k64js2f2h643gjii0li4ub5pvj2rjag6</string>
+	            <string>com.googleusercontent.apps.1069607834406-ukgeis192c0vhthcj28gm1n4e8agdakh</string>
     			<string>com.googleusercontent.apps.722408477068-ohhpu6r6mlul1uj2h8u0m9k8atqokeol</string>
     		</array>
     	</dict>
@@ -74,13 +74,13 @@
           </dict>
     </array>
     
-    <!-- For Google Auth -->
+    <!-- For Facebook Auth -->
     <key>FacebookAppID</key>
     <string>$(APP_FACEBOOK_ID)</string>
     <key>FacebookClientToken</key>
-    <string>CLIENT-TOKEN</string>
+    <string>$(CLIENT_TOKEN)</string>
     <key>FacebookDisplayName</key>
-    <string>{your-app-name}</string>
+    <string>Flutter Chat App</string>
     <key>LSApplicationQueriesSchemes</key>
     <array>
         <string>fbapi</string>

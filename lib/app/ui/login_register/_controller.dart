@@ -2,6 +2,7 @@ import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 
 import '../../resources/resources.dart';
+import '../../routes/app_pages.dart';
 import '../../utils/app_utils.dart';
 import '../ui.dart';
 
@@ -46,6 +47,7 @@ class LoginRegisterController extends BaseController {
         setLoading(false);
         if (networkState.isSuccess) {
           AppUtils.toast('Success');
+          Get.offAllNamed(Routes.NAVIGATION);
         } else {
           notification(networkState.message!);
         }
@@ -64,6 +66,7 @@ class LoginRegisterController extends BaseController {
       setLoading(false);
       if (networkState.isSuccess) {
         AppUtils.toast('Success');
+        Get.offAllNamed(Routes.NAVIGATION);
       } else {
         notification(networkState.message!);
       }
@@ -92,6 +95,7 @@ class LoginRegisterController extends BaseController {
       setLoading(false);
       if (networkState.isSuccess) {
         AppUtils.toast('Success');
+        Get.offAllNamed(Routes.NAVIGATION);
       } else {
         notification(networkState.message!);
       }
