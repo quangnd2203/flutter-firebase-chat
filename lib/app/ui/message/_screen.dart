@@ -25,56 +25,59 @@ class MessageScreen extends BaseScreen<MessageController> {
   }
 
   Widget buildBody() {
-    return CustomScrollView(
-      controller: controller.scrollController,
-      slivers: <Widget>[
-        SliverAppBar(
-          backgroundColor: Colors.white,
-          expandedHeight: 100,
-          stretch: true,
-          actions: <Widget>[
-            Icon(
-              Icons.search,
-              size: 30,
-              color: AppColors.text,
-            )
-          ],
-          automaticallyImplyLeading: false,
-          pinned: true,
-          floating: true,
-          flexibleSpace: FlexibleSpaceBar(
-            centerTitle: false,
-            expandedTitleScale: 1.25,
-            titlePadding: const EdgeInsets.only(left: 16, bottom: 10, top: 16),
-            title: Text(
-              'Message',
-              style: AppTextStyles.normalBold.copyWith(fontSize: 35),
+    return RefreshIndicator(
+      onRefresh: controller.onRefresh,
+      edgeOffset: 200,
+      child: CustomScrollView(
+        controller: controller.scrollController,
+        slivers: <Widget>[
+          SliverAppBar(
+            backgroundColor: Colors.white,
+            expandedHeight: 100,
+            stretch: true,
+            actions: <Widget>[
+              Icon(
+                Icons.search,
+                size: 30,
+                color: AppColors.text,
+              )
+            ],
+            automaticallyImplyLeading: false,
+            pinned: true,
+            floating: true,
+            flexibleSpace: FlexibleSpaceBar(
+              centerTitle: false,
+              expandedTitleScale: 1.25,
+              titlePadding: const EdgeInsets.only(left: 16, bottom: 10, top: 16),
+              title: Text(
+                'Message',
+                style: AppTextStyles.normalBold.copyWith(fontSize: 35),
+              ),
             ),
           ),
-        ),
-        SliverList(
-          delegate: SliverChildBuilderDelegate(
-            (_, int index) {
-              return const WidgetConversation();
-            },
-            childCount: controller.currentOffset.value,
+          SliverList(
+            delegate: SliverChildBuilderDelegate(
+              (_, int index) {
+                return const WidgetConversation();
+              },
+              childCount: controller.currentOffset.value,
+            ),
           ),
-        ),
-        SliverToBoxAdapter(
-          child: Padding(
-            padding: const EdgeInsets.all(16),
-            child: Center(
-                child: CircularProgressIndicator(
-              color: AppColors.grey,
-            )),
+          if(!controller.loading.value) const SliverToBoxAdapter(
+            child: Padding(
+              padding: EdgeInsets.all(16),
+              child: Center(
+                  child: CircularProgressIndicator(
+              )),
+            ),
           ),
-        ),
-        const SliverToBoxAdapter(
-          child: SizedBox(
-            height: 150,
-          ),
-        )
-      ],
+          const SliverToBoxAdapter(
+            child: SizedBox(
+              height: 150,
+            ),
+          )
+        ],
+      ),
     );
   }
 }

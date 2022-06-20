@@ -9,23 +9,33 @@ class MessageController extends BaseController {
 
   final ScrollController scrollController = ScrollController();
 
-  RxInt currentOffset = 10.obs;
+  RxInt currentOffset = 0.obs;
 
   RxBool isShowSearch = false.obs;
 
   @override
   Future<void> onInit() async {
-
-    scrollController.addListener(() {
-      if(scrollController.position.maxScrollExtent <= scrollController.offset + 75){
-        currentOffset += 10;
-      }
-    });
-
+    onScrollControllerListen();
+    setLoading(true);
+    await onRefresh();
+    setLoading(false);
     super.onInit();
   }
 
   void changeSearchState(){
     isShowSearch.value = !isShowSearch.value;
+  }
+
+  void onScrollControllerListen(){
+    scrollController.addListener(() {
+      if(scrollController.position.maxScrollExtent <= scrollController.offset + 100){
+        currentOffset += 10;
+      }
+    });
+  }
+
+  Future<void> onRefresh() async {
+    await Future<void>.delayed(const Duration(seconds: 2));
+    currentOffset.value = 10;
   }
 }

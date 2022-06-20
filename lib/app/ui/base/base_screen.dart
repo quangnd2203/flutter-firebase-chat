@@ -19,6 +19,7 @@ class BaseScreen<T extends BaseController> extends GetResponsiveView<T>{
       builder: (BaseController controller) {
         return WidgetLoadingFullScreen(
           loading: controller.loading.value,
+          colorBackground: Colors.white.withOpacity(0.25),
           child: builder()!,
         );
       },
