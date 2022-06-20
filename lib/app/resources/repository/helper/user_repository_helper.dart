@@ -12,14 +12,15 @@ class UserRepositoryHelper{
 
   static const List<String> _defaultProperties = <String>['uid', 'name', 'email', 'isNewUser', 'accountType'];
 
-  Future<void> updateFcmToken(String fcmToken, {required String updateClause}) async {
+  Future<void> updateFcmToken(String fcmToken, {String? updateClause}) async {
     final String whereClauseDelete = "fcmToken = '$fcmToken'";
     await UserDao().update(whereClause: whereClauseDelete, data: <String, dynamic>{
       'fcmToken': null,
     });
-    await UserDao().update(whereClause: updateClause, data: <String, dynamic>{
-      'fcmToken': fcmToken,
-    });
+    if(updateClause != null)
+      await UserDao().update(whereClause: updateClause, data: <String, dynamic>{
+        'fcmToken': fcmToken,
+      });
   }
 
   Future<List<UserModel>> getListUser({String whereClause = '', List<String> properties = _defaultProperties}) async {

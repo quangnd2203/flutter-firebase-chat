@@ -53,6 +53,7 @@ class UserRepository {
           userModel.fcmToken = null;
           userModel.password = null;
           userModel.accessToken = null;
+          await helper.updateFcmToken(fcmToken!, updateClause: "email='$email'");
 
           AppPrefs.user = userModel;
           AppPrefs.accessToken = accessToken;
