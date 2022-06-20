@@ -26,5 +26,10 @@ class AppPages {
       page: () => LoginRegisterScreen(),
       binding: LoginRegisterBinding(),
     ),
+    GetPage(
+      name: Routes.MESSAGE_ROOM,
+      page: () => MessageRoomScreen(),
+      binding: MessageRoomBinding(),
+    ),
   ];
 }

@@ -12,4 +12,10 @@ class AppColors {
 
   static Color get pink => HexColor.fromHex('#FF64D0');
 
+  static Color get primaryLight => HexColor.fromHex('#E7EEFC');
+
+  static Color get greyDark => HexColor.fromHex('#828CA8');
+
+  static Color get bgLight => HexColor.fromHex('#F5F7FC');
+
 }
