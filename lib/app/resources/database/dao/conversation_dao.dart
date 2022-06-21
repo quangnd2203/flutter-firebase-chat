@@ -2,14 +2,14 @@
 
 import '../../resources.dart';
 
-class UserDao extends Dao<UserModel>{
+class ConversationDao extends Dao<ConversationModel>{
 
-  factory UserDao() {
-    return _instance ??= UserDao._();
+  factory ConversationDao() {
+    return _instance ??= ConversationDao._();
   }
-  UserDao._();
+  ConversationDao._();
 
-  static UserDao? _instance;
+  static ConversationDao? _instance;
 
   /// Khởi tạo AppDataBase để có thể thao tác với Backendless
 
@@ -18,28 +18,28 @@ class UserDao extends Dao<UserModel>{
 
   /// Gán tên của bảng trên Backendless vào đây.
   @override
-  String tableName = 'User';
+  String tableName = 'Conversation';
 
-  /// Phương thức này dùng để query CSDL trả ra List<UserModel>
+  /// Phương thức này dùng để query CSDL trả ra List<ConversationModel>
   ///
   /// Cac biến:
   ///   queryBuilder: điều kiện đầu vào (có thể có hoặc không).
   @override
-  Future<List<UserModel>> read({DataQueryBuilder? queryBuilder}) async {
-    List<UserModel> result = <UserModel>[];
+  Future<List<ConversationModel>> read({DataQueryBuilder? queryBuilder}) async {
+    List<ConversationModel> result = <ConversationModel>[];
     final List<Map<dynamic, dynamic>?>? response = await appDatabase.read(tableName, queryBuilder: queryBuilder);
     if(response != null){
-      result = response.map<UserModel>((Map<dynamic, dynamic>? e) => UserModel.fromJson(Map<String, dynamic>.from(e!))).toList();
+      result = response.map<ConversationModel>((Map<dynamic, dynamic>? e) => ConversationModel.fromJson(Map<String, dynamic>.from(e!))).toList();
     }
     return result;
   }
 
   @override
-  Future<UserModel?> save({required Map<String, dynamic> data, bool isUpsert = false}) async {
-    UserModel? result;
+  Future<ConversationModel?> save({required Map<String, dynamic> data, bool isUpsert = false}) async {
+    ConversationModel? result;
     final Map<dynamic, dynamic>? response = await appDatabase.save(tableName, data: data, isUpsert: isUpsert);
     if(response != null){
-      result = UserModel.fromJson(Map<String, dynamic>.from(response));
+      result = ConversationModel.fromJson(Map<String, dynamic>.from(response));
     }
     return result;
   }

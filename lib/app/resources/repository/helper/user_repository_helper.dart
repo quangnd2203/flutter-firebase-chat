@@ -10,7 +10,7 @@ class UserRepositoryHelper{
 
   static UserRepositoryHelper? _instance;
 
-  static const List<String> _defaultProperties = <String>['uid', 'name', 'email', 'isNewUser', 'accountType'];
+  static const List<String> _defaultProperties = <String>['uid', 'name', 'email', 'isNewUser', 'accountType', 'objectId'];
 
   Future<void> updateFcmToken(String fcmToken, {String? updateClause}) async {
     final String whereClauseDelete = "fcmToken = '$fcmToken'";
@@ -33,10 +33,25 @@ class UserRepositoryHelper{
     List<UserModel> result;
     final DataQueryBuilder query = DataQueryBuilder();
     query.properties = properties;
-    query.havingClause = whereClause;
+    query.whereClause = whereClause;
     query.pageSize = limit;
     query.offset = offset;
     result = await UserDao().read(queryBuilder: query);
+    return result;
+  }
+
+  Future<UserModel?> getUser({
+    String whereClause = '',
+    List<String> properties = _defaultProperties,
+  }) async {
+    UserModel? result;
+    final DataQueryBuilder query = DataQueryBuilder();
+    query.properties = properties;
+    query.whereClause = whereClause;
+    final List<UserModel> listUser = await UserDao().read(queryBuilder: query);
+    if(listUser.isNotEmpty){
+      result = listUser.first;
+    }
     return result;
   }
 

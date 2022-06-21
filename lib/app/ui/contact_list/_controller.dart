@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../resources/repository/helper/conversation_repository_helper.dart';
 import '../../resources/resources.dart';
+import '../../utils/utils.dart';
 import '../ui.dart';
 
 class ContactListController extends BaseController {
@@ -20,6 +22,7 @@ class ContactListController extends BaseController {
     await onRefresh();
     setLoading(false);
     super.onInit();
+    ConversationRepositoryHelper().getConversationByUsers(users: [users[0],users[1]]);
   }
 
   void changeSearchState() {
@@ -48,5 +51,9 @@ class ContactListController extends BaseController {
   Future<void> loadMore() async {
     currentOffset += 15;
     users.addAll(await getUsers());
+  }
+
+  Future<void> createConversation(UserModel userModel) async {
+    final NetworkState<ConversationModel?> networkState = await ConversationRepository().createConversation(userModel);
   }
 }

@@ -1,3 +1,5 @@
+import '../resources.dart';
+
 /// uid : "uid-1655258998474880"
 /// password : "8c389f79e7d90ba088d7a2b05ef6ef6a29cb642110695fa0a7dc45f139cc4882"
 /// accountType : "normal"
@@ -15,6 +17,7 @@ class UserModel {
     this.email,
     this.isNewUser,
     this.accessToken,
+    this.objectId,
   });
 
   UserModel.fromJson(Map<String, dynamic> json) {
@@ -26,6 +29,7 @@ class UserModel {
     email = json['email'] as String?;
     isNewUser = json['isNewUser'] as bool?;
     accessToken = json['accessToken'] as String?;
+    objectId = json['objectId'] as String?;
   }
 
   String? uid;
@@ -35,6 +39,7 @@ class UserModel {
   String? fcmToken;
   String? email;
   String? accessToken;
+  String? objectId;
   bool? isNewUser;
 
   UserModel copyWith({
@@ -46,6 +51,7 @@ class UserModel {
     String? email,
     bool? isNewUser,
     String? accessToken,
+    String? objectId,
   }) =>
       UserModel(
         uid: uid ?? this.uid,
@@ -56,6 +62,7 @@ class UserModel {
         email: email ?? this.email,
         isNewUser: isNewUser ?? this.isNewUser,
         accessToken: accessToken ?? this.accessToken,
+        objectId: objectId ?? this.objectId,
       );
 
   Map<String, dynamic> toJson() {
@@ -68,6 +75,16 @@ class UserModel {
     map['email'] = email;
     map['isNewUser'] = isNewUser;
     map['accessToken'] = accessToken;
+    map['objectId'] = objectId;
     return map;
+  }
+
+  static List<UserModel> listToJson(dynamic json){
+    List<UserModel> result = <UserModel>[];
+    if(json != null){
+      final List<Map<dynamic, dynamic>> data = List<Map<dynamic, dynamic>>.from(json as List<Object?>);
+      result = data.map<UserModel>((Map<dynamic, dynamic> e) => UserModel.fromJson(Map<String, dynamic>.from(e))).toList();
+    }
+    return result;
   }
 }

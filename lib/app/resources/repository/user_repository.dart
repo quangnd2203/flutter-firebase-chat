@@ -108,11 +108,11 @@ class UserRepository {
     try {
       final String havingClause = "email='${loginSocialResult.id}'";
 
-      final List<UserModel> users = await helper.getListUser(
+      UserModel? userModel = await helper.getUser(
         whereClause: havingClause,
       );
-      final bool userNotExist = users.isEmpty;
-      UserModel? userModel;
+
+      final bool userNotExist = userModel == null;
 
       final String? fcmToken = await FirebaseCloudMessaging.getFCMToken();
       final String accessToken = BackendService().generateToken();
@@ -131,7 +131,6 @@ class UserRepository {
           ),
         );
       } else{
-        userModel = users.first;
         await helper.updateFcmToken(fcmToken!, updateClause: havingClause);
       }
 
@@ -161,17 +160,11 @@ class UserRepository {
       return NetworkState<UserModel?>.withDisconnect();
     }
     try{
-      UserModel? userModel;
       final String? accessToken = AppPrefs.accessToken;
-      final List<UserModel> listUserExist = await helper.getListUser(
+      final UserModel? userModel = await helper.getUser(
         whereClause: "accessToken='$accessToken'",
       );
-
-      if(listUserExist.isNotEmpty){
-        userModel = listUserExist.first;
-        AppPrefs.user = userModel;
-      }
-
+      AppPrefs.user = userModel;
       return NetworkState<UserModel>(
         status: userModel != null ? AppEndpoint.SUCCESS : AppEndpoint.FAILED,
         data: userModel,
@@ -188,15 +181,9 @@ class UserRepository {
       return NetworkState<UserModel?>.withDisconnect();
     }
     try{
-      UserModel? userModel;
-      final List<UserModel> listUserExist = await helper.getListUser(
+      final UserModel? userModel = await helper.getUser(
         whereClause: "uid='$uid'",
       );
-
-      if(listUserExist.isNotEmpty){
-        userModel = listUserExist.first;
-      }
-
       return NetworkState<UserModel>(
         status: userModel != null ? AppEndpoint.SUCCESS : AppEndpoint.FAILED,
         data: userModel,

@@ -1,6 +1,10 @@
 import 'package:backendless_sdk/backendless_sdk.dart';
+
 import '../app_database.dart';
+
 export 'package:backendless_sdk/backendless_sdk.dart';
+
+export 'conversation_dao.dart';
 export 'user_dao.dart';
 
 abstract class Dao<T>{
@@ -15,4 +19,9 @@ abstract class Dao<T>{
   Future<T?> save({required Map<String, dynamic> data, bool isUpsert = false});
 
   Future<int> update({required String whereClause, required Map<String, dynamic> data});
+
+  Future<int> setRelation({required String parentObjectId, required String relationColumnName, List<String>? childrenObjectIds, String? whereClause}) async {
+    final int? response = await appDatabase.setRelation(tableName, parentObjectId: parentObjectId, relationColumnName: relationColumnName, childrenObjectIds: childrenObjectIds, whereClause: whereClause);
+    return response ?? 0;
+  }
 }

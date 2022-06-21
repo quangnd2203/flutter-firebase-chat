@@ -16,9 +16,9 @@ class BackendService {
     return result;
   }
 
-  String generateGUID() {
+  String generateGUID([String prefix = 'uid']) {
     final DateTime now = DateTime.now();
-    return 'uid-${now.microsecondsSinceEpoch.toString()}';
+    return '$prefix-${now.microsecondsSinceEpoch.toString()}';
   }
 
   String generateToken(){
