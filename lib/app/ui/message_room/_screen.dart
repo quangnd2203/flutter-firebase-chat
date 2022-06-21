@@ -1,6 +1,7 @@
 // ignore_for_file: use_key_in_widget_constructors
 
 import 'package:flutter/material.dart';
+import 'package:flutter_app/app/ui/message_room/widget_message_item.dart';
 import 'package:get/get.dart';
 
 import '../../constants/constants.dart';
@@ -71,40 +72,40 @@ class MessageRoomScreen extends BaseScreen<MessageRoomController> {
               padding: const EdgeInsets.only(top: 25),
               physics: const BouncingScrollPhysics(),
               child: Column(
-                children: <Widget>[
-                  buildMessage(
+                children: const <Widget>[
+                  WidgetMessageItem(
                     'Anh yeu em anh yeu em anh yeu em ang yeu em anh yeu em ammsdsdmAnh yeu em anh yeu em anh yeu em ang yeu em anh yeu em ammsdsdm',
                   ),
-                  buildMessage(
+                  WidgetMessageItem(
                     'Anh yeu em anh yeu em anh yeu em ang yeu em anh yeu em ammsdsdmeu em anh yeu em anh yeu em ang yeu em anh yeu em ammsdsdm',
                     isOwner: false,
                   ),
-                  buildMessage(
+                  WidgetMessageItem(
                     'Anh yeu em anh yeu em anh yeu em ang yeu em anh yeu em ammsdsdm',
                     isOwner: false,
                   ),
-                  buildMessage(
+                  WidgetMessageItem(
                     'Anh yeu em anh yeu em anh yeu em ang yeu em anh yeu em ammsdsdm',
                     isOwner: false,
                   ),
-                  buildMessage(
+                  WidgetMessageItem(
                     'Anh yeu em anh yeu em anh yeu em ang yeu em anh yeu em ammsdsdm',
                     isOwner: false,
                   ),
-                  buildMessage(
+                  WidgetMessageItem(
                     'Anh yeu em anh yeu em anh yeu em ang yeu em anh yeu em ammsdsdm',
                     isOwner: false,
                   ),
-                  buildMessage(
+                  WidgetMessageItem(
                     'Anh yeu em anh yeu em anh yeu em ang yeu em anh yeu em ammsdsdm',
                   ),
-                  buildMessage(
+                  WidgetMessageItem(
                     'Anh yeu em anh yeu em anh yeu em ang yeu em anh yeu em ammsdsdm',
                   ),
-                  buildMessage(
+                  WidgetMessageItem(
                     'Anh yeu em anh yeu em anh yeu em ang yeu em anh yeu em ammsdsdm',
                   ),
-                  buildMessage(
+                  WidgetMessageItem(
                     'Anh yeu em anh yeu em anh yeu em ang yeu em anh yeu em ammsdsdm',
                   ),
                 ],
@@ -128,35 +129,20 @@ class MessageRoomScreen extends BaseScreen<MessageRoomController> {
     );
   }
 
-  Widget buildMessage(String text, {bool isOwner = true}) {
-    return Align(
-      alignment: isOwner ? Alignment.centerRight : Alignment.centerLeft,
-      child: Container(
-        width: Get.width * 0.8,
-        margin: const EdgeInsets.only(bottom: 16),
-        decoration: BoxDecoration(
-          color: isOwner ? AppColors.primary : AppColors.bgLight,
-          borderRadius: const BorderRadius.all(Radius.circular(30)).copyWith(
-            bottomRight: isOwner ? Radius.zero : null,
-            bottomLeft: isOwner ? null : Radius.zero,
-          ),
-        ),
-        padding: const EdgeInsets.all(16),
-        child: Text(
-          text,
-          style: AppTextStyles.normalSemiBold
-              .copyWith(color: isOwner ? Colors.white : AppColors.text),
-        ),
-      ),
-    );
-  }
-
   Widget buildInputField() {
     return Container(
       decoration: const BoxDecoration(
         color: Colors.white,
+        boxShadow: [
+          BoxShadow(
+            color: Colors.white,
+            blurRadius: 20,
+            spreadRadius: 5,
+            offset: Offset(0,-1)
+          )
+        ]
       ),
-      padding: const EdgeInsets.all(16),
+      padding: const EdgeInsets.all(16).copyWith(top: 6),
       child: Container(
         padding: const EdgeInsets.all(16),
         decoration: BoxDecoration(
@@ -171,7 +157,9 @@ class MessageRoomScreen extends BaseScreen<MessageRoomController> {
                 Icons.add,
               ),
             ),
-            const SizedBox(width: 16,),
+            const SizedBox(
+              width: 16,
+            ),
             const Expanded(
               child: TextField(
                 decoration: InputDecoration.collapsed(

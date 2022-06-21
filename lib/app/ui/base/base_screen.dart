@@ -11,18 +11,20 @@ class BaseScreen<T extends BaseController> extends GetResponsiveView<T>{
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    return GetX<T>(
-      dispose: (GetXState<T> state) {
-        Logger().d('DISPOSE: "$runtimeType" - "$T"');
-        Get.delete<T>();
-      },
-      builder: (BaseController controller) {
-        return WidgetLoadingFullScreen(
-          loading: controller.loading.value,
-          colorBackground: Colors.white.withOpacity(0.25),
-          child: builder()!,
-        );
-      },
+    return WidgetKeyboardDismiss(
+      child: GetX<T>(
+        dispose: (GetXState<T> state) {
+          Logger().d('DISPOSE: "$runtimeType" - "$T"');
+          Get.delete<T>();
+        },
+        builder: (BaseController controller) {
+          return WidgetLoadingFullScreen(
+            loading: controller.loading.value,
+            colorBackground: Colors.white.withOpacity(0.25),
+            child: builder()!,
+          );
+        },
+      ),
     );
   }
 
