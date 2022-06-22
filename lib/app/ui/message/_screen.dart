@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../constants/constants.dart';
 import '../../resources/resources.dart';
+import '../../routes/app_pages.dart';
 import '../ui.dart';
 import 'widget/widget_conversation.dart';
 
@@ -57,8 +58,14 @@ class MessageScreen extends BaseScreen<MessageController> {
       ),
       dataRequester: (int offset) => controller.getConversations(offset),
       initRequester: () => controller.getConversations(0),
-      itemBuilder: (List<ConversationModel> data, BuildContext context, int index) {
-        return WidgetConversation(conversation: data[index],);
+      itemBuilder:
+          (List<ConversationModel> data, BuildContext context, int index) {
+        return InkWell(
+          onTap: () => Get.toNamed(Routes.MESSAGE_ROOM),
+          child: WidgetConversation(
+            conversation: data[index],
+          ),
+        );
       },
     );
   }

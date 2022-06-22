@@ -16,19 +16,22 @@ class ConversationModel {
 
   ConversationModel.fromJson(Map<String, dynamic> json) {
     conversationId = json['conversationId'] as String?;
-    lastMessage = json['lastMessage'];
+    lastMessage = json['lastMessage'] != null
+        ? MessageModel.fromJson(Map<String, dynamic>.from(
+            json['lastMessage'] as Map<dynamic, dynamic>))
+        : null;
     objectId = json['objectId'] as String?;
     users = UserModel.listToJson(json['users']);
   }
 
   String? conversationId;
-  dynamic lastMessage;
+  MessageModel? lastMessage;
   String? objectId;
   List<UserModel>? users;
 
   ConversationModel copyWith({
     String? conversationId,
-    dynamic lastMessage,
+    MessageModel? lastMessage,
     String? objectId,
     List<UserModel>? users,
   }) =>
@@ -42,7 +45,7 @@ class ConversationModel {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> map = <String, dynamic>{};
     map['conversationId'] = conversationId;
-    map['lastMessage'] = lastMessage;
+    map['lastMessage'] = lastMessage?.toJson();
     map['objectId'] = objectId;
     if (users != null) {
       map['users'] = users?.map((UserModel? v) => v?.toJson()).toList();

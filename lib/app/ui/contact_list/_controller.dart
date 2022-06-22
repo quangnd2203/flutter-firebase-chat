@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../resources/resources.dart';
+import '../../routes/app_pages.dart';
 import '../ui.dart';
 
 class ContactListController extends BaseController {
@@ -27,5 +28,6 @@ class ContactListController extends BaseController {
 
   Future<void> createConversation(UserModel userModel) async {
     final NetworkState<ConversationModel?> networkState = await ConversationRepository().createConversation(userModel);
+    Get.toNamed(Routes.MESSAGE_ROOM);
   }
 }

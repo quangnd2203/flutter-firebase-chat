@@ -29,7 +29,13 @@ class MessageRoomScreen extends BaseScreen<MessageRoomController> {
       padding: const EdgeInsets.all(16).copyWith(top: 16 + viewPaddingTop),
       child: Row(
         children: <Widget>[
-          const Icon(Icons.arrow_back),
+          InkWell(
+            onTap: () => Get.back(),
+            child: const Padding(
+              padding: EdgeInsets.all(8.0),
+              child: Icon(Icons.arrow_back),
+            ),
+          ),
           const SizedBox(
             width: 15,
           ),
@@ -44,7 +50,10 @@ class MessageRoomScreen extends BaseScreen<MessageRoomController> {
           const SizedBox(
             width: 15,
           ),
-          const Icon(Icons.settings_outlined),
+          const Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Icon(Icons.settings_outlined),
+          ),
         ],
       ),
     );
@@ -131,17 +140,14 @@ class MessageRoomScreen extends BaseScreen<MessageRoomController> {
 
   Widget buildInputField() {
     return Container(
-      decoration: const BoxDecoration(
-        color: Colors.white,
-        boxShadow: [
-          BoxShadow(
+      decoration:
+          const BoxDecoration(color: Colors.white, boxShadow: <BoxShadow>[
+        BoxShadow(
             color: Colors.white,
             blurRadius: 20,
             spreadRadius: 5,
-            offset: Offset(0,-1)
-          )
-        ]
-      ),
+            offset: Offset(0, -1))
+      ]),
       padding: const EdgeInsets.all(16).copyWith(top: 6),
       child: Container(
         padding: const EdgeInsets.all(16),

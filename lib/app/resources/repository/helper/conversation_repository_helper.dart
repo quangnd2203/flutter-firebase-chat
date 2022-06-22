@@ -11,7 +11,7 @@ class ConversationRepositoryHelper{
   static ConversationRepositoryHelper? _instance;
 
   static const List<String> _defaultProperties = <String>['conversationId', 'objectId'];
-  static const List<String> _defaultRelations = <String>['lastMessage', 'users'];
+  static const List<String> _defaultRelations = <String>['lastMessage', 'users', 'lastMessage.user'];
 
   Future<ConversationModel?> saveConversation(ConversationModel model) async {
     ConversationModel? conversationModel;

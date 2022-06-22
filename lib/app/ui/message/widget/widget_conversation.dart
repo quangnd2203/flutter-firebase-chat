@@ -10,6 +10,15 @@ class WidgetConversation extends StatelessWidget {
 
   late final UserModel partner = conversation.users!.firstWhere((UserModel user) => user.uid != AppPrefs.user!.uid);
 
+  String get showMessage{
+    if(conversation.lastMessage == null){
+      return 'Bắt đầu cuộc hội thoại';
+    } else if(conversation.lastMessage?.text == null){
+      return 'Đã gửi hình ảnh';
+    }
+    return conversation.lastMessage!.text!;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -29,8 +38,8 @@ class WidgetConversation extends StatelessWidget {
                   child: Image.asset(
                     AppImages.jpg('anhnen'),
                     fit: BoxFit.cover,
-                    width: 70,
-                    height: 70,
+                    width: 65,
+                    height: 65,
                   ),
                 ),
                 const SizedBox(
@@ -39,15 +48,16 @@ class WidgetConversation extends StatelessWidget {
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
+                      const SizedBox(height: 4,),
                       Text(
                         partner.name!,
                         style: AppTextStyles.normalSemiBold.copyWith(fontSize: 18),
                       ),
+                      const SizedBox(height: 8,),
                       Text(
-                          'Anh yeu em anh yeu em anh yem Anh yeu em anh yeu em anh yem Anh yeu em anh yeu em anh yem Anh yeu em anh yeu em anh yem ',
-                        style: AppTextStyles.normal.copyWith(fontSize: 14, color: AppColors.grey, height: 1.35),
+                        showMessage,
+                        style: AppTextStyles.normal.copyWith(fontSize: 14, color: AppColors.grey,),
                         maxLines: 2,
                       ),
                     ],
