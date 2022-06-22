@@ -44,6 +44,8 @@ class WidgetSliverLoadMoreVerticalState<T>
         if (_dataList == null)
           SliverToBoxAdapter(
             child: SizedBox(
+              width: Get.width,
+              height: Get.height,
               child: Center(
                 child: loadingProgress(),
               ),
