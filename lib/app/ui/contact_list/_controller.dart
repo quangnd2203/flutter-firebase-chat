@@ -1,56 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../resources/repository/helper/conversation_repository_helper.dart';
 import '../../resources/resources.dart';
-import '../../utils/utils.dart';
 import '../ui.dart';
 
 class ContactListController extends BaseController {
   final ScrollController scrollController = ScrollController();
 
-  int currentOffset = 0;
-
   RxBool isShowSearch = false.obs;
-
-  RxList<UserModel> users = <UserModel>[].obs;
 
   @override
   Future<void> onInit() async {
-    onScrollControllerListen();
     setLoading(true);
-    await onRefresh();
     setLoading(false);
     super.onInit();
-    ConversationRepositoryHelper().getConversationByUsers(users: [users[0],users[1]]);
   }
 
   void changeSearchState() {
     isShowSearch.value = !isShowSearch.value;
   }
 
-  void onScrollControllerListen() {
-    scrollController.addListener(() async {
-      if (scrollController.position.maxScrollExtent == scrollController.offset) {
-        await loadMore();
-      }
-    });
-  }
-
-  Future<void> onRefresh() async {
-    currentOffset = 0;
-    users.clear();
-    users.addAll(await getUsers());
-  }
-
-  Future<List<UserModel>> getUsers() async {
-    final NetworkState<List<UserModel>> networkState = await UserRepository().getUsers(offset: currentOffset);
+  Future<List<UserModel>> getUsers(int offset) async {
+    final NetworkState<List<UserModel>> networkState = await UserRepository().getUsers(offset: offset);
     return networkState.data ?? <UserModel>[];
-  }
-
-  Future<void> loadMore() async {
-    currentOffset += 15;
-    users.addAll(await getUsers());
   }
 
   Future<void> createConversation(UserModel userModel) async {

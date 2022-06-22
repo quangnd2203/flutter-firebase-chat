@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import '../../resources/resources.dart';
 import '../../routes/app_pages.dart';
 import '../../utils/app_utils.dart';
+import '../../utils/utils.dart';
 import '../ui.dart';
 
 class LoginRegisterController extends BaseController {
@@ -18,6 +19,7 @@ class LoginRegisterController extends BaseController {
   @override
   Future<void> onInit() async {
     super.onInit();
+    // await addMoreUser();
   }
 
   void clearTextField() {
@@ -102,4 +104,10 @@ class LoginRegisterController extends BaseController {
     }
   }
 
+  // addMoreUser() async {
+  //   for(int i = 0; i < 50; i++){
+  //     final Map<String, String> data = AppEmail().createEmailAndName();
+  //     await UserRepository().register(email: data['email']!, password: 'Aa22032001!', name: data['name']!);
+  //   }
+  // }
 }

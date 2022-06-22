@@ -7,4 +7,5 @@ export 'widget_keyboard_dismiss.dart';
 export 'widget_loading_full.dart';
 export 'widget_loadmore_wrap_vertical.dart';
 export 'widget_restart.dart';
+export 'widget_sliver_loadmore_vertical.dart';
 export 'widget_theme_switcher.dart';

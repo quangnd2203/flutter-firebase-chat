@@ -1,21 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../resources/resources.dart';
 import '../ui.dart';
 
 class MessageController extends BaseController {
-
-  final ScrollController scrollController = ScrollController();
-
-  RxInt currentOffset = 0.obs;
 
   RxBool isShowSearch = false.obs;
 
   @override
   Future<void> onInit() async {
-    onScrollControllerListen();
+    // onScrollControllerListen();
     setLoading(true);
-    await onRefresh();
+    // await onRefresh();
     setLoading(false);
     super.onInit();
   }
@@ -24,16 +21,9 @@ class MessageController extends BaseController {
     isShowSearch.value = !isShowSearch.value;
   }
 
-  void onScrollControllerListen(){
-    scrollController.addListener(() {
-      if(scrollController.position.maxScrollExtent <= scrollController.offset + 100){
-        currentOffset += 10;
-      }
-    });
+  Future<List<ConversationModel>> getConversations(int offset) async {
+    final NetworkState<List<ConversationModel>> networkState = await ConversationRepository().getConversation(offset: offset);
+    return networkState.data ?? <ConversationModel>[];
   }
 
-  Future<void> onRefresh() async {
-    await Future<void>.delayed(const Duration(seconds: 2));
-    currentOffset.value = 10;
-  }
 }
