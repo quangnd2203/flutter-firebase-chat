@@ -202,7 +202,7 @@ class UserRepository {
     try{
       UserModel? userModel;
       final List<UserModel> listUserExist = await helper.getListUser(
-        whereClause: "name like '%$keyword%'",
+        whereClause: "name like '%$keyword%' AND accessToken != '${AppPrefs.accessToken}'",
         limit: limit,
         offset: offset
       );

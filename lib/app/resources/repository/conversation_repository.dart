@@ -14,8 +14,7 @@ class ConversationRepository {
 
   final ConversationRepositoryHelper _helper = ConversationRepositoryHelper();
 
-  Future<NetworkState<ConversationModel?>> createConversation(
-      UserModel partner) async {
+  Future<NetworkState<ConversationModel?>> createConversation(UserModel partner) async {
     final bool isDisconnect = await WifiService.isDisconnect();
     if (isDisconnect) {
       return NetworkState<ConversationModel?>.withDisconnect();
@@ -23,8 +22,11 @@ class ConversationRepository {
     try {
       final String conversationId = BackendService().generateGUID('cid');
 
-      ConversationModel? conversationModel = await _helper.getConversationByUsers(
-        users: <UserModel>[partner, AppPrefs.user!],
+      final String queryClause = "users.accessToken='${AppPrefs.accessToken}'";
+
+      ConversationModel? conversationModel = await _helper.getConversation(
+        whereClause: queryClause,
+        partner: partner,
       );
 
       conversationModel ??= await _helper.saveConversation(ConversationModel(
@@ -50,6 +52,26 @@ class ConversationRepository {
       );
     } on Exception catch (e) {
       return NetworkState<ConversationModel?>.withError(e);
+    }
+  }
+
+  Future<NetworkState<List<ConversationModel>>> getConversation({int offset = 0, int limit = 15,}) async {
+    final bool isDisconnect = await WifiService.isDisconnect();
+    if (isDisconnect) {
+      return NetworkState<List<ConversationModel>>.withDisconnect();
+    }
+    try {
+      final List<ConversationModel> conversations = await _helper.getListConversations(
+        limit: limit,
+        offset: offset,
+        whereClause: "users.accessToken = '${AppPrefs.accessToken}'",
+      );
+      return NetworkState<List<ConversationModel>>(
+        status: AppEndpoint.SUCCESS,
+        data: conversations,
+      );
+    } on Exception catch (e) {
+      return NetworkState<List<ConversationModel>>.withError(e);
     }
   }
 }

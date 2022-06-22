@@ -21,21 +21,47 @@ class ConversationRepositoryHelper{
     return conversationModel;
   }
 
-  Future<ConversationModel?> getConversationByUsers({
-    required List<UserModel> users,
+  Future<ConversationModel?> getConversation({
+    String whereClause = '',
+    required UserModel partner,
     List<String> properties = _defaultProperties,
   }) async {
     ConversationModel? result;
     final DataQueryBuilder query = DataQueryBuilder();
     query.properties = properties;
-    query.groupBy = _defaultProperties;
     query.related = _defaultRelations;
-    query.whereClause = 'users.uid IN ${users.map((UserModel e) => "'${e.uid}'").toString().replaceAll('[', '(').replaceAll(']', ')')}';
+    query.whereClause = whereClause;
     final List<ConversationModel> listConversation = await ConversationDao().read(queryBuilder: query);
     if(listConversation.isNotEmpty){
-      result = listConversation.first;
+      for(final ConversationModel item in listConversation){
+        if(result != null){
+          break;
+        }
+        for(final UserModel user in item.users!){
+          if(partner.uid!.contains(user.uid!)){
+            result = item;
+            break;
+          }
+        }
+      }
     }
     return result;
   }
 
+  Future<List<ConversationModel>> getListConversations({
+    String whereClause = '',
+    List<String> properties = _defaultProperties,
+    int limit = 15,
+    int offset = 0,
+  }) async {
+    List<ConversationModel> result;
+    final DataQueryBuilder query = DataQueryBuilder();
+    query.properties = properties;
+    query.related = _defaultRelations;
+    query.whereClause = whereClause;
+    query.pageSize = limit;
+    query.offset = offset;
+    result = await ConversationDao().read(queryBuilder: query);
+    return result;
+  }
 }

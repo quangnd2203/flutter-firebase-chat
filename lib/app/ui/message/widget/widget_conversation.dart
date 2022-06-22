@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
 
 import '../../../constants/constants.dart';
+import '../../../resources/resources.dart';
+import '../../../utils/utils.dart';
 
 class WidgetConversation extends StatelessWidget {
-  const WidgetConversation({Key? key}) : super(key: key);
+  WidgetConversation({Key? key, required this.conversation}) : super(key: key);
+  final ConversationModel conversation;
+
+  late final UserModel partner = conversation.users!.firstWhere((UserModel user) => user.uid != AppPrefs.user!.uid);
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +42,7 @@ class WidgetConversation extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
                       Text(
-                        'Nguyen Dang Quang',
+                        partner.name!,
                         style: AppTextStyles.normalSemiBold.copyWith(fontSize: 18),
                       ),
                       Text(
