@@ -79,7 +79,7 @@
     <string>$(APP_FACEBOOK_ID)</string>
     <key>FacebookClientToken</key>
     <string>$(CLIENT_TOKEN)</string>
-    <key>FacebookDisplayName</key>An
+    <key>FacebookDisplayName</key>
     <string>Flutter Chat App</string>
     <key>LSApplicationQueriesSchemes</key>
     <array>
