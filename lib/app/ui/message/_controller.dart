@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../resources/resources.dart';
+import '../../routes/app_pages.dart';
 import '../ui.dart';
 
 class MessageController extends BaseController {
@@ -26,4 +27,7 @@ class MessageController extends BaseController {
     return networkState.data ?? <ConversationModel>[];
   }
 
+  void toConversation(ConversationModel model){
+    Get.toNamed(Routes.MESSAGE_ROOM, arguments: model);
+  }
 }

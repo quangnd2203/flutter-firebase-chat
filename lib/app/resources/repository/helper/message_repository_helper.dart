@@ -32,6 +32,7 @@ class MessageRepositoryHelper{
     query.properties = properties;
     query.related = _defaultRelations;
     query.whereClause = whereClause;
+    query.sortBy = <String>['created DESC'];
     query.pageSize = limit;
     query.offset = offset;
     result = await MessageDao().read(queryBuilder: query);

@@ -98,12 +98,34 @@ class AppDataBase {
     int? status;
     try {
       logger.d('SET_RELATION: $tableName');
-      status = await Backendless.data.of(tableName).addRelation(
+      status = await Backendless.data.of(tableName).setRelation(
             parentObjectId,
             relationColumnName,
             whereClause: whereClause,
             childrenObjectIds: childrenObjectIds,
           );
+    } on Exception catch (e) {
+      _handleError(e);
+    }
+    return status;
+  }
+
+  Future<int?> deleteRelation(
+      String tableName, {
+        required String parentObjectId,
+        required String relationColumnName,
+        List<String>? childrenObjectIds,
+        String? whereClause,
+      }) async {
+    int? status;
+    try {
+      logger.d('DELETE_RELATION: $tableName');
+      status = await Backendless.data.of(tableName).deleteRelation(
+        parentObjectId,
+        relationColumnName,
+        whereClause: whereClause,
+        childrenObjectIds: childrenObjectIds,
+      );
     } on Exception catch (e) {
       _handleError(e);
     }

@@ -25,4 +25,9 @@ abstract class Dao<T>{
     final int? response = await appDatabase.setRelation(tableName, parentObjectId: parentObjectId, relationColumnName: relationColumnName, childrenObjectIds: childrenObjectIds, whereClause: whereClause);
     return response ?? 0;
   }
+
+  Future<int> deleteRelation({required String parentObjectId, required String relationColumnName, List<String>? childrenObjectIds, String? whereClause}) async {
+    final int? response = await appDatabase.deleteRelation(tableName, parentObjectId: parentObjectId, relationColumnName: relationColumnName, childrenObjectIds: childrenObjectIds, whereClause: whereClause);
+    return response ?? 0;
+  }
 }

@@ -1,16 +1,51 @@
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 
 import '../../resources/resources.dart';
 import '../ui.dart';
 
 class MessageRoomController extends BaseController {
-
   final ConversationModel? conversation = Get.arguments as ConversationModel?;
+  final ScrollController scrollController = ScrollController();
+  final TextEditingController messageController = TextEditingController();
+
+  final RxList<MessageModel> _messages = <MessageModel>[].obs;
+
+  List<MessageModel> get messages => _messages.toList();
 
   @override
-  void onInit() {
+  Future<void> onInit() async {
+    setLoading(true);
+    _messages.addAll(await getMessageOfConversation());
+    onScrollControllerListener();
     super.onInit();
+    setLoading(false);
   }
 
+  Future<List<MessageModel>> getMessageOfConversation() async {
+    final NetworkState<List<MessageModel>> networkState =
+        await MessageRepository().getMessageOfConversation(
+            conversation!.conversationId!,
+            offset: messages.length);
+    return networkState.data ?? <MessageModel>[];
+  }
 
+  void onScrollControllerListener() {
+    scrollController.addListener(() async {
+      if (scrollController.offset ==
+          scrollController.position.maxScrollExtent) {
+        final List<MessageModel> messageMore = await getMessageOfConversation();
+        if (messageMore.isNotEmpty) {
+          _messages.addAll(messageMore);
+        }
+      }
+    });
+  }
+
+  Future<void> sendMessage() async {
+    final NetworkState<MessageModel?> networkState = await MessageRepository().sendMessage(conversation!, text: messageController.text);
+    if(networkState.isSuccess){
+      _messages.insert(0,networkState.data!);
+    }
+  }
 }

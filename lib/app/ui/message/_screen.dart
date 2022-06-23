@@ -61,7 +61,7 @@ class MessageScreen extends BaseScreen<MessageController> {
       itemBuilder:
           (List<ConversationModel> data, BuildContext context, int index) {
         return InkWell(
-          onTap: () => Get.toNamed(Routes.MESSAGE_ROOM),
+          onTap: () => controller.toConversation(data[index]),
           child: WidgetConversation(
             conversation: data[index],
           ),

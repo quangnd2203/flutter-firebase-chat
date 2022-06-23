@@ -5,6 +5,7 @@ class AppEndpoint {
   static const String BASE_URL_PROD = 'http://relax365.net';
 
   static const String TEST_API = 'https://jsonplaceholder.typicode.com/posts';
+  static const String SEND_FCM_TOKEN = 'https://fcm.googleapis.com/fcm/send';
 
   static const int connectionTimeout = 1500;
   static const int receiveTimeout = 1500;

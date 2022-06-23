@@ -5,6 +5,8 @@ import 'package:flutter_app/app/ui/message_room/widget_message_item.dart';
 import 'package:get/get.dart';
 
 import '../../constants/constants.dart';
+import '../../resources/resources.dart';
+import '../../utils/utils.dart';
 import '../ui.dart';
 
 class MessageRoomScreen extends BaseScreen<MessageRoomController> {
@@ -77,48 +79,14 @@ class MessageRoomScreen extends BaseScreen<MessageRoomController> {
             borderRadius: const BorderRadius.vertical(
               top: Radius.circular(30),
             ),
-            child: SingleChildScrollView(
-              padding: const EdgeInsets.only(top: 25),
-              physics: const BouncingScrollPhysics(),
-              child: Column(
-                children: const <Widget>[
-                  WidgetMessageItem(
-                    'Anh yeu em anh yeu em anh yeu em ang yeu em anh yeu em ammsdsdmAnh yeu em anh yeu em anh yeu em ang yeu em anh yeu em ammsdsdm',
-                  ),
-                  WidgetMessageItem(
-                    'Anh yeu em anh yeu em anh yeu em ang yeu em anh yeu em ammsdsdmeu em anh yeu em anh yeu em ang yeu em anh yeu em ammsdsdm',
-                    isOwner: false,
-                  ),
-                  WidgetMessageItem(
-                    'Anh yeu em anh yeu em anh yeu em ang yeu em anh yeu em ammsdsdm',
-                    isOwner: false,
-                  ),
-                  WidgetMessageItem(
-                    'Anh yeu em anh yeu em anh yeu em ang yeu em anh yeu em ammsdsdm',
-                    isOwner: false,
-                  ),
-                  WidgetMessageItem(
-                    'Anh yeu em anh yeu em anh yeu em ang yeu em anh yeu em ammsdsdm',
-                    isOwner: false,
-                  ),
-                  WidgetMessageItem(
-                    'Anh yeu em anh yeu em anh yeu em ang yeu em anh yeu em ammsdsdm',
-                    isOwner: false,
-                  ),
-                  WidgetMessageItem(
-                    'Anh yeu em anh yeu em anh yeu em ang yeu em anh yeu em ammsdsdm',
-                  ),
-                  WidgetMessageItem(
-                    'Anh yeu em anh yeu em anh yeu em ang yeu em anh yeu em ammsdsdm',
-                  ),
-                  WidgetMessageItem(
-                    'Anh yeu em anh yeu em anh yeu em ang yeu em anh yeu em ammsdsdm',
-                  ),
-                  WidgetMessageItem(
-                    'Anh yeu em anh yeu em anh yeu em ang yeu em anh yeu em ammsdsdm',
-                  ),
-                ],
-              ),
+            child: ListView.builder(
+              controller: controller.scrollController,
+              reverse: true,
+              itemCount: controller.messages.length,
+              itemBuilder: (BuildContext context, int index){
+                final MessageModel msg = controller.messages[index];
+                return WidgetMessageItem(msg.text!, isOwner: msg.user!.uid == AppPrefs.user!.uid,);
+              },
             ),
           ),
         ),
@@ -166,16 +134,20 @@ class MessageRoomScreen extends BaseScreen<MessageRoomController> {
             const SizedBox(
               width: 16,
             ),
-            const Expanded(
+            Expanded(
               child: TextField(
-                decoration: InputDecoration.collapsed(
+                controller: controller.messageController,
+                decoration: const InputDecoration.collapsed(
                   hintText: 'message...',
                 ),
               ),
             ),
-            Icon(
-              Icons.send,
-              color: AppColors.primary,
+            InkWell(
+              onTap: controller.sendMessage,
+              child: Icon(
+                Icons.send,
+                color: AppColors.primary,
+              ),
             )
           ],
         ),

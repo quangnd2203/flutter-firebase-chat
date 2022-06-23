@@ -15,7 +15,10 @@ class MessageRepository {
   final MessageRepositoryHelper _helper = MessageRepositoryHelper();
 
   Future<NetworkState<List<MessageModel>>> getMessageOfConversation(
-      String conversationId) async {
+    String conversationId, {
+    int limit = 15,
+    int offset = 0,
+  }) async {
     final bool isDisconnect = await WifiService.isDisconnect();
     if (isDisconnect) {
       return NetworkState<List<MessageModel>>.withDisconnect();
@@ -25,6 +28,8 @@ class MessageRepository {
           "conversation.conversationId = '$conversationId'";
       final List<MessageModel> result = await _helper.getListMessage(
         whereClause: whereClause,
+        limit: limit,
+        offset: offset,
       );
       return NetworkState<List<MessageModel>>(
         status: AppEndpoint.SUCCESS,
@@ -45,7 +50,7 @@ class MessageRepository {
       return NetworkState<MessageModel?>.withDisconnect();
     }
     try {
-      MessageModel? messageModel = await _helper.saveMessage(
+      final MessageModel? messageModel = await _helper.saveMessage(
         MessageModel(
           text: text,
           media: media,
@@ -54,36 +59,39 @@ class MessageRepository {
       );
 
       if (messageModel != null) {
-        await MessageDao().setRelation(
+        MessageDao().setRelation(
           parentObjectId: messageModel.objectId!,
           relationColumnName: 'conversation',
           childrenObjectIds: <String>[
             conversationModel.objectId!,
           ],
         );
-        await MessageDao().setRelation(
-          parentObjectId: messageModel.objectId!,
-          relationColumnName: 'user',
-          childrenObjectIds: <String>[
-            AppPrefs.user!.objectId!,
-          ],
-        );
-        await ConversationDao().setRelation(
+        ConversationDao().setRelation(
           parentObjectId: conversationModel.objectId!,
           relationColumnName: 'lastMessage',
           childrenObjectIds: <String>[
             messageModel.objectId!,
           ],
         );
-        messageModel = await _helper.getMessage(
-          whereClause: "objectId = '${messageModel.objectId}'"
+        MessageDao().setRelation(
+          parentObjectId: messageModel.objectId!,
+          relationColumnName: 'user',
+          childrenObjectIds: <String>[
+            AppPrefs.user!.objectId!,
+          ],
+        );
+        messageModel.user = AppPrefs.user;
+        messageModel.conversation = conversationModel;
+        FirebaseRepository().pushNotification(
+            title: '${AppPrefs.user!.name}',
+            content: text ?? media ?? '',
+            fcmToken: conversationModel.users!.firstWhere((e) => e.uid != AppPrefs.user!.uid).fcmToken!,
         );
       }
       return NetworkState<MessageModel?>(
         status: messageModel != null ? AppEndpoint.SUCCESS : AppEndpoint.FAILED,
         data: messageModel,
       );
-
     } on Exception catch (e) {
       return NetworkState<MessageModel?>.withError(e);
     }

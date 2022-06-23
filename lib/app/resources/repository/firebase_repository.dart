@@ -1,4 +1,10 @@
+import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+
+import '../../constants/app_endpoint.dart';
+import '../../constants/app_values.dart';
+import '../../utils/utils.dart';
+import '../resources.dart';
 // import 'package:firebase_messaging/firebase_messaging.dart';
 // import '../../constants/constants.dart';
 // import '../../utils/app_clients.dart';
@@ -6,9 +12,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 // import '../service/wifi_service.dart';
 // import 'package:dio/dio.dart';
 
-
 class FirebaseRepository {
-
   factory FirebaseRepository() {
     _instance ??= FirebaseRepository._();
     return _instance!;
@@ -62,4 +66,36 @@ class FirebaseRepository {
   //     return NetworkState.withError(e);
   //   }
   // }
+
+  Future<NetworkState<dynamic>> pushNotification({
+    required String title,
+    required String content,
+    Map<String, dynamic>? data,
+    required String fcmToken,
+  }) async {
+    final bool isDisconnect = await WifiService.isDisconnect();
+    if (isDisconnect) {
+      return NetworkState<dynamic>.withDisconnect();
+    }
+    try {
+      final Response<dynamic> response = await AppClients(
+          options: BaseOptions(headers: <String, dynamic>{
+        'Authorization': FIRE_BASE_MESSAGE_TOKEN,
+      })).post(
+        AppEndpoint.SEND_FCM_TOKEN,
+        data: <String, dynamic>{
+          'priority': 'HIGH',
+          'notification': <String, dynamic>{'title': title, 'body': content},
+          'data': data,
+          'to': fcmToken,
+        },
+      );
+      return NetworkState<dynamic>(
+        status: AppEndpoint.SUCCESS,
+        data: response.data,
+      );
+    } on DioError catch (e) {
+      return NetworkState<dynamic>.withError(e);
+    }
+  }
 }
