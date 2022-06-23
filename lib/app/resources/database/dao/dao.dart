@@ -5,6 +5,7 @@ import '../app_database.dart';
 export 'package:backendless_sdk/backendless_sdk.dart';
 
 export 'conversation_dao.dart';
+export 'message_dao.dart';
 export 'user_dao.dart';
 
 abstract class Dao<T>{

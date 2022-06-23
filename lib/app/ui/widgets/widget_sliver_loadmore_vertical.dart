@@ -94,7 +94,7 @@ class WidgetSliverLoadMoreVerticalState<T>
       onRefresh: onRefresh,
       child: CustomScrollView(
         controller: _controller,
-        physics: const BouncingScrollPhysics(),
+        physics: const AlwaysScrollableScrollPhysics(),
         slivers: <Widget>[
               widget.appBar ??
                   const SliverToBoxAdapter(
