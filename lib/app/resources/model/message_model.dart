@@ -21,7 +21,7 @@ class MessageModel {
   });
 
   MessageModel.fromJson(Map<String, dynamic> json) {
-    created = json['created'] as DateTime?;
+    created = json['created'].toString();
     messageId = json['messageId'] as String?;
     media = json['media'] as String?;
     text = json['text'] as String?;
@@ -35,7 +35,7 @@ class MessageModel {
             json['conversation'] as Map<dynamic, dynamic>))
         : null;
   }
-  DateTime? created;
+  String? created;
   String? messageId;
   String? media;
   String? text;
@@ -44,7 +44,7 @@ class MessageModel {
   ConversationModel? conversation;
 
   MessageModel copyWith({
-    DateTime? created,
+    String? created,
     String? messageId,
     String? media,
     String? text,
@@ -64,7 +64,7 @@ class MessageModel {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> map = <String, dynamic>{};
-    map['created'] = created;
+    map['created'] = created?.toString();
     map['messageId'] = messageId;
     map['media'] = media;
     map['text'] = text;

@@ -29,6 +29,7 @@ class MessageScreen extends BaseScreen<MessageController> {
 
   Widget buildBody() {
     return WidgetSliverLoadMoreVertical<ConversationModel>.build(
+      key: Get.find<NavigationController>().messageLoadMoreKey,
       appBar: SliverAppBar(
         backgroundColor: Colors.white,
         expandedHeight: 100,

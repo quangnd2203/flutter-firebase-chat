@@ -1,4 +1,7 @@
+import 'dart:convert';
+
 import '../../constants/constants.dart';
+import '../../utils/app_utils.dart';
 import '../../utils/utils.dart';
 import '../resources.dart';
 import 'helper/message_repository_helper.dart';
@@ -80,12 +83,27 @@ class MessageRepository {
             AppPrefs.user!.objectId!,
           ],
         );
+
         messageModel.user = AppPrefs.user;
         messageModel.conversation = conversationModel;
+        messageModel.conversation!.users![0].accessToken = null;
+        messageModel.conversation!.users![1].accessToken = null;
+        messageModel.user!.accessToken = null;
+        messageModel.user!.fcmToken = null;
+        final Map<String, dynamic> data = <String, dynamic>{
+          'message': messageModel.toJson(),
+        };
+
+        print(conversationModel.users!.map<String>((UserModel e) => e.fcmToken!).toList());
+
         FirebaseRepository().pushNotification(
             title: '${AppPrefs.user!.name}',
             content: text ?? media ?? '',
-            fcmToken: conversationModel.users!.firstWhere((e) => e.uid != AppPrefs.user!.uid).fcmToken!,
+            fcmToken: conversationModel.users!.map<String>((UserModel e) => e.fcmToken!).toList(),
+            data: <String, dynamic>{
+              'type': 'message',
+              'data': data,
+            },
         );
       }
       return NetworkState<MessageModel?>(

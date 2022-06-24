@@ -2,15 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../constants/constants.dart';
+import '../../resources/resources.dart';
+import '../../utils/app_utils.dart';
 
 class WidgetMessageItem extends StatefulWidget {
   const WidgetMessageItem(
-    this.text, {
+    this.messageModel, {
     Key? key,
     this.isOwner = true,
   }) : super(key: key);
   final bool isOwner;
-  final String text;
+  final MessageModel messageModel;
 
   @override
   State<WidgetMessageItem> createState() => _WidgetMessageItemState();
@@ -48,7 +50,7 @@ class _WidgetMessageItemState extends State<WidgetMessageItem> {
                 ),
                 padding: const EdgeInsets.all(16),
                 child: Text(
-                  widget.text,
+                  widget.messageModel.text!,
                   style: AppTextStyles.normalSemiBold.copyWith(
                       color: widget.isOwner ? Colors.white : AppColors.text),
                 ),
@@ -61,14 +63,22 @@ class _WidgetMessageItemState extends State<WidgetMessageItem> {
                     height: 4,
                   ),
                   Text(
-                    '02:00 AM',
+                    AppUtils.convertString2String(
+                      widget.messageModel.created,
+                      inputFormat: 'yyyy-MM-dd HH:mm:SS.SSS',
+                      outputFormat: 'EEEE dd-MM-yyyy HH:mm a',
+                    ),
                     style: AppTextStyles.normalRegular
                         .copyWith(color: AppColors.greyDark, fontSize: 14),
-                  )
+                  ),
                 ],
               ),
-              secondChild: const SizedBox(width: 65,),
-              crossFadeState: isShowTime ? CrossFadeState.showFirst : CrossFadeState.showSecond,
+              secondChild: const SizedBox(
+                width: 190,
+              ),
+              crossFadeState: isShowTime
+                  ? CrossFadeState.showFirst
+                  : CrossFadeState.showSecond,
               duration: const Duration(milliseconds: 250),
             ),
           ],

@@ -1,4 +1,7 @@
+// ignore_for_file: always_specify_types, strict_raw_type
+
 import 'dart:async';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../resources/resources.dart';
 import '../../routes/app_pages.dart';
@@ -11,6 +14,8 @@ class NavigationController extends BaseController {
 
   RxInt index = 0.obs;
 
+  GlobalKey<WidgetSliverLoadMoreVerticalState> messageLoadMoreKey = GlobalKey();
+
   @override
   Future<void> onInit() async {
     super.onInit();
@@ -18,8 +23,9 @@ class NavigationController extends BaseController {
   }
 
   void logout(){
+    UserRepositoryHelper().updateFcmToken('', updateClause: "uid='${AppPrefs.user!.uid!}'");
     AppPrefs.accessToken = null;
     AppPrefs.user = null;
-    Get.offAllNamed(Routes.LOGIN_REGISTER);
+    Get.offAndToNamed(Routes.LOGIN_REGISTER);
   }
 }

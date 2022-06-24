@@ -52,26 +52,11 @@ class FirebaseRepository {
 
   Future<void> signOut() => _auth.signOut();
 
-  // Future<NetworkState> updateFirebaseToken() async {
-  //   bool isDisconnect = await WifiService.isDisconnect();
-  //   if (isDisconnect) return NetworkState.withDisconnect();
-  //   try {
-  //     String? token = await FirebaseMessaging.instance.getToken();
-  //     Response response = await AppClients().post("URL", data: {"fcm_device_token": token});
-  //     return NetworkState(
-  //       status: response.statusCode ?? AppEndpoint.SUCCESS,
-  //       data: response.data,
-  //     );
-  //   } on DioError catch (e) {
-  //     return NetworkState.withError(e);
-  //   }
-  // }
-
   Future<NetworkState<dynamic>> pushNotification({
     required String title,
     required String content,
     Map<String, dynamic>? data,
-    required String fcmToken,
+    required List<String> fcmToken,
   }) async {
     final bool isDisconnect = await WifiService.isDisconnect();
     if (isDisconnect) {
@@ -87,7 +72,7 @@ class FirebaseRepository {
           'priority': 'HIGH',
           'notification': <String, dynamic>{'title': title, 'body': content},
           'data': data,
-          'to': fcmToken,
+          'registration_ids': fcmToken,
         },
       );
       return NetworkState<dynamic>(

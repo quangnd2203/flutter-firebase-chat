@@ -108,4 +108,14 @@ class AppUtils {
   static String getNameOfEnumValue(dynamic enumValue){
     return enumValue.toString().split('.').last;
   }
+
+  static String convertObjectToBase64(dynamic object){
+    final List<int> utf8List = utf8.encode(jsonEncode(object));
+    return base64.encode(utf8List);
+  }
+
+  static dynamic convertBase64ToObject(String base64String){
+    final List<int> utf8List = base64Decode(base64String);
+    return jsonDecode(utf8.decode(utf8List));
+  }
 }

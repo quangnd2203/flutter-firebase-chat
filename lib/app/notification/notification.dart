@@ -13,7 +13,7 @@ Future<void> notificationInitialed() async {
 }
 
 final GetStream<String?> selectNotificationSubject = GetStream<String?>();
-final GetStream<bool> notificationSubject = GetStream<bool>();
+final GetStream<Data?> notificationSubject = GetStream<Data?>();
 
 StreamSubscription? _subscription;
 
@@ -21,7 +21,7 @@ void configureSelectNotificationSubject(Function(Data payloadData) redirect) {
   _subscription = selectNotificationSubject.stream.listen((String? payload) async {
         if (payload != null){
           try {
-            final Data data = Data.fromJson(jsonDecode(payload) as Map<String, dynamic>?);
+            final Data data = Data.fromJson(jsonDecode(payload) as Map<String, dynamic>);
             redirect(data);
           } catch (e) {
             print('Error redirect by notification: $e');

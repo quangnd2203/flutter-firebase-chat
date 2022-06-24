@@ -161,10 +161,15 @@ class UserRepository {
     }
     try{
       final String? accessToken = AppPrefs.accessToken;
+
       final UserModel? userModel = await helper.getUser(
         whereClause: "accessToken='$accessToken'",
       );
       AppPrefs.user = userModel;
+      if(userModel != null){
+        final String? fcmToken = await FirebaseCloudMessaging.getFCMToken();
+        await helper.updateFcmToken(fcmToken!, updateClause: "accessToken='$accessToken'");
+      }
       return NetworkState<UserModel>(
         status: userModel != null ? AppEndpoint.SUCCESS : AppEndpoint.FAILED,
         data: userModel,

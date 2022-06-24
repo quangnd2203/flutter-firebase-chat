@@ -44,7 +44,7 @@ class MessageRoomScreen extends BaseScreen<MessageRoomController> {
           Expanded(
             child: Center(
               child: Text(
-                'Nguyen Dang Quang',
+                controller.conversation!.users!.firstWhere((UserModel e) => e.uid != AppPrefs.user!.uid).name!,
                 style: AppTextStyles.normalBold.copyWith(fontSize: 20),
               ),
             ),
@@ -85,7 +85,7 @@ class MessageRoomScreen extends BaseScreen<MessageRoomController> {
               itemCount: controller.messages.length,
               itemBuilder: (BuildContext context, int index){
                 final MessageModel msg = controller.messages[index];
-                return WidgetMessageItem(msg.text!, isOwner: msg.user!.uid == AppPrefs.user!.uid,);
+                return WidgetMessageItem(msg, isOwner: msg.user!.uid == AppPrefs.user!.uid,);
               },
             ),
           ),
@@ -137,6 +137,7 @@ class MessageRoomScreen extends BaseScreen<MessageRoomController> {
             Expanded(
               child: TextField(
                 controller: controller.messageController,
+                textCapitalization: TextCapitalization.sentences,
                 decoration: const InputDecoration.collapsed(
                   hintText: 'message...',
                 ),

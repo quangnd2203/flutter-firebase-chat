@@ -17,9 +17,9 @@ class SplashController extends BaseController {
   Future<void> getProfile() async {
     final NetworkState<UserModel?> networkState = await UserRepository().authenticationUser();
     if (networkState.isSuccess) {
-      Get.offAllNamed(Routes.NAVIGATION);
+      Get.offAndToNamed(Routes.NAVIGATION);
     } else {
-      Get.offAllNamed(Routes.LOGIN_REGISTER);
+      Get.offAndToNamed(Routes.LOGIN_REGISTER);
     }
   }
 }

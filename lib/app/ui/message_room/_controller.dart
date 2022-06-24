@@ -1,6 +1,9 @@
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 
+import '../../notification/message_notification.dart';
+import '../../notification/notification.dart';
+import '../../notification/notification_data.dart';
 import '../../resources/resources.dart';
 import '../ui.dart';
 
@@ -17,6 +20,7 @@ class MessageRoomController extends BaseController {
   Future<void> onInit() async {
     setLoading(true);
     _messages.addAll(await getMessageOfConversation());
+    onNotificationReceiver();
     onScrollControllerListener();
     super.onInit();
     setLoading(false);
@@ -43,9 +47,23 @@ class MessageRoomController extends BaseController {
   }
 
   Future<void> sendMessage() async {
+    if(messageController.text.isEmpty){
+      return;
+    }
     final NetworkState<MessageModel?> networkState = await MessageRepository().sendMessage(conversation!, text: messageController.text);
     if(networkState.isSuccess){
-      _messages.insert(0,networkState.data!);
+      messageController.text = '';
     }
+  }
+
+  void onNotificationReceiver(){
+    notificationSubject.listen((Data? event) {
+      if(event?.type == 'message'){
+        final MessageNotification messageNotification = event!.data as MessageNotification;
+        if(messageNotification.message!.conversation!.conversationId == conversation!.conversationId){
+          _messages.insert(0, messageNotification.message!);
+        }
+      }
+    });
   }
 }

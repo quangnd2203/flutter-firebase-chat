@@ -49,7 +49,7 @@ class LoginRegisterController extends BaseController {
         setLoading(false);
         if (networkState.isSuccess) {
           AppUtils.toast('Success');
-          Get.offAllNamed(Routes.NAVIGATION);
+          Get.offAndToNamed(Routes.NAVIGATION);
         } else {
           notification(networkState.message!);
         }
@@ -68,7 +68,7 @@ class LoginRegisterController extends BaseController {
       setLoading(false);
       if (networkState.isSuccess) {
         AppUtils.toast('Success');
-        Get.offAllNamed(Routes.NAVIGATION);
+        Get.offAndToNamed(Routes.NAVIGATION);
       } else {
         notification(networkState.message!);
       }

@@ -16,8 +16,8 @@ class AppPages {
       name: Routes.NAVIGATION,
       page: () => NavigationScreen(),
       bindings: [
-        MessageBinding(),
         NavigationBinding(),
+        MessageBinding(),
         ContactListBinding(),
       ]
     ),
