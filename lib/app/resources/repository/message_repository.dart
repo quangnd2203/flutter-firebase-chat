@@ -93,13 +93,10 @@ class MessageRepository {
         final Map<String, dynamic> data = <String, dynamic>{
           'message': messageModel.toJson(),
         };
-
-        print(conversationModel.users!.map<String>((UserModel e) => e.fcmToken!).toList());
-
         FirebaseRepository().pushNotification(
             title: '${AppPrefs.user!.name}',
             content: text ?? media ?? '',
-            fcmToken: conversationModel.users!.map<String>((UserModel e) => e.fcmToken!).toList(),
+            fcmToken: conversationModel.users!.map<String>((UserModel e) => e.fcmToken ?? '').toList(),
             data: <String, dynamic>{
               'type': 'message',
               'data': data,

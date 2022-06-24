@@ -26,9 +26,7 @@ class FirebaseCloudMessaging {
   }
 
   static Future<void> initFirebaseMessaging() async {
-    if (Platform.isIOS) {
-      await instance.requestPermission();
-    }
+    await instance.requestPermission();
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
       log('OnMessage: ${message.data}');
       _handler(message, isOpenApp: true);
