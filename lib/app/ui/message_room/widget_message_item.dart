@@ -63,18 +63,14 @@ class _WidgetMessageItemState extends State<WidgetMessageItem> {
                     height: 4,
                   ),
                   Text(
-                    AppUtils.convertString2String(
-                      widget.messageModel.created,
-                      inputFormat: 'yyyy-MM-dd HH:mm:SS.SSS',
-                      outputFormat: 'EEEE dd-MM-yyyy HH:mm a',
-                    ),
+                    AppUtils.getTimePeriod(AppUtils.convertString2DateTime(widget.messageModel.created, format: 'yyyy-MM-dd HH:mm:SS.SSS')!),
                     style: AppTextStyles.normalRegular
                         .copyWith(color: AppColors.greyDark, fontSize: 14),
                   ),
                 ],
               ),
               secondChild: const SizedBox(
-                width: 190,
+                width: 75,
               ),
               crossFadeState: isShowTime
                   ? CrossFadeState.showFirst

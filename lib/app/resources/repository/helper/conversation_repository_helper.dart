@@ -61,7 +61,7 @@ class ConversationRepositoryHelper{
     query.whereClause = whereClause;
     query.pageSize = limit;
     query.offset = offset;
-    query.sortBy = <String>['updated ASC'];
+    query.sortBy = <String>['lastMessage.created DESC'];
     result = await ConversationDao().read(queryBuilder: query);
     return result;
   }

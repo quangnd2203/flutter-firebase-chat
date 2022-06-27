@@ -34,7 +34,7 @@ class ConversationRepository {
       ));
 
       if (conversationModel != null) {
-        await ConversationDao().setRelation(
+        ConversationDao().setRelation(
           parentObjectId: conversationModel.objectId!,
           relationColumnName: 'users',
           childrenObjectIds: <String>[
@@ -42,6 +42,10 @@ class ConversationRepository {
             AppPrefs.user!.objectId!
           ],
         );
+        conversationModel.users = <UserModel>[
+          partner,
+          AppPrefs.user!,
+        ];
       }
 
       return NetworkState<ConversationModel?>(

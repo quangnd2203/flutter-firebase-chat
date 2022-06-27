@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import '../../notification/notification.dart';
 import '../../resources/resources.dart';
 import '../../routes/app_pages.dart';
+import '../../utils/utils.dart';
 import '../ui.dart';
 
 class MessageController extends BaseController {
@@ -38,6 +39,9 @@ class MessageController extends BaseController {
 
   void onNotificationReceiver(){
     notificationSubject.listen((event) {
+      Get.find<NavigationController>().messageLoadMoreKey.currentState!.onRefresh();
+    });
+    AppPrefs.notificationConversation.listen((event) {
       Get.find<NavigationController>().messageLoadMoreKey.currentState!.onRefresh();
     });
   }

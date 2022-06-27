@@ -20,12 +20,12 @@ class NavigationController extends BaseController {
   @override
   Future<void> onInit() async {
     super.onInit();
-    FirebaseCloudMessaging.subscribeToTopic('conversation/${AppPrefs.user!.uid!}');
+    FirebaseCloudMessaging.subscribeToTopic('conversation-${AppPrefs.user!.uid!}');
   }
 
   void logout(){
     UserRepositoryHelper().updateFcmToken('', updateClause: "uid='${AppPrefs.user!.uid!}'");
-    FirebaseCloudMessaging.unSubscribeFromTopic('conversation/${AppPrefs.user!.uid!}');
+    FirebaseCloudMessaging.unSubscribeFromTopic('conversation-${AppPrefs.user!.uid!}');
     AppPrefs.accessToken = null;
     AppPrefs.user = null;
     Get.offAndToNamed(Routes.LOGIN_REGISTER);

@@ -2,22 +2,26 @@ import 'package:flutter/material.dart';
 
 import '../../../constants/constants.dart';
 import '../../../resources/resources.dart';
+import '../../../utils/app_utils.dart';
 import '../../../utils/utils.dart';
 
 class WidgetConversation extends StatelessWidget {
   WidgetConversation({Key? key, required this.conversation}) : super(key: key);
   final ConversationModel conversation;
 
-  late final UserModel partner = conversation.users!.firstWhere((UserModel user) => user.uid != AppPrefs.user!.uid);
+  late final UserModel partner = conversation.users!
+      .firstWhere((UserModel user) => user.uid != AppPrefs.user!.uid);
 
-  String get showMessage{
-    if(conversation.lastMessage == null){
+  String get showMessage {
+    if (conversation.lastMessage == null) {
       return 'Bắt đầu cuộc hội thoại';
-    } else if(conversation.lastMessage?.text == null){
+    } else if (conversation.lastMessage?.text == null) {
       return 'Đã gửi hình ảnh';
     }
-    return conversation.lastMessage!.text!;
+    return '${conversation.lastMessage!.user!.uid != partner.uid ? 'Bạn: ' : ''}${conversation.lastMessage!.text!}';
   }
+
+  bool get isNew => AppPrefs.newConversations.contains(conversation.conversationId);
 
   @override
   Widget build(BuildContext context) {
@@ -49,24 +53,39 @@ class WidgetConversation extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      const SizedBox(height: 4,),
+                      const SizedBox(
+                        height: 4,
+                      ),
                       Text(
                         partner.name!,
-                        style: AppTextStyles.normalSemiBold.copyWith(fontSize: 18),
+                        style:
+                            AppTextStyles.normalSemiBold.copyWith(fontSize: 18),
                       ),
-                      const SizedBox(height: 8,),
+                      const SizedBox(
+                        height: 8,
+                      ),
                       Text(
                         showMessage,
-                        style: AppTextStyles.normal.copyWith(fontSize: 14, color: AppColors.grey,),
+                        style: AppTextStyles.normal.copyWith(
+                          fontSize: 14,
+                          color: isNew ? AppColors.text :AppColors.grey,
+                          fontWeight: isNew ? FontWeight.bold : FontWeight.w500,
+                        ),
                         maxLines: 2,
                       ),
                     ],
                   ),
                 ),
-                const SizedBox(width: 16,),
+                const SizedBox(
+                  width: 16,
+                ),
+                if(conversation.lastMessage != null)
                 Padding(
                   padding: const EdgeInsets.only(top: 4),
-                  child: Text('2 min', style: AppTextStyles.normalRegular.copyWith(fontSize: 12),),
+                  child: Text(
+                    AppUtils.getTimePeriod(AppUtils.convertString2DateTime(conversation.lastMessage!.created, format: 'yyyy-MM-dd HH:mm:SS.SSS')!),
+                    style: AppTextStyles.normalRegular.copyWith(fontSize: 12),
+                  ),
                 )
               ],
             ),

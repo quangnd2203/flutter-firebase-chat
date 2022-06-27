@@ -118,4 +118,22 @@ class AppUtils {
     final List<int> utf8List = base64Decode(base64String);
     return jsonDecode(utf8.decode(utf8List));
   }
+
+  static String getTimePeriod(DateTime date){
+    final DateTime now = DateTime.now();
+    final Duration duration = now.difference(date);
+    if(duration.inMinutes < 2){
+      return 'now';
+    }
+    if(duration.inMinutes < 60){
+      return '${duration.inMinutes} min';
+    }
+    if(duration.inHours < 24){
+      return '${duration.inHours} hours';
+    }
+    if(duration.inDays < 30){
+      return '${duration.inDays} days';
+    }
+    return convertDateTime2String(date, format: 'dd/MM/yyyy');
+  }
 }

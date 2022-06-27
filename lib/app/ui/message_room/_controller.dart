@@ -5,13 +5,13 @@ import '../../notification/message_notification.dart';
 import '../../notification/notification.dart';
 import '../../notification/notification_data.dart';
 import '../../resources/resources.dart';
+import '../../utils/utils.dart';
 import '../ui.dart';
 
 class MessageRoomController extends BaseController {
   final ConversationModel? conversation = Get.arguments as ConversationModel?;
   final ScrollController scrollController = ScrollController();
   final TextEditingController messageController = TextEditingController();
-
   final RxList<MessageModel> _messages = <MessageModel>[].obs;
 
   List<MessageModel> get messages => _messages.toList();
@@ -24,6 +24,7 @@ class MessageRoomController extends BaseController {
     onScrollControllerListener();
     super.onInit();
     setLoading(false);
+    AppPrefs.newConversations = List<String>.from(AppPrefs.newConversations)..removeWhere((String e) => e == conversation!.conversationId);
   }
 
   Future<List<MessageModel>> getMessageOfConversation() async {
