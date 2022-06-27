@@ -96,7 +96,7 @@ class MessageRepository {
         FirebaseRepository().pushNotification(
             title: '${AppPrefs.user!.name}',
             content: text ?? media ?? '',
-            fcmToken: conversationModel.users!.map<String>((UserModel e) => e.fcmToken ?? '').toList(),
+            topics: messageModel.conversation!.users!.map((UserModel e) => 'conversation-${e.uid}').toList(),
             data: <String, dynamic>{
               'type': 'message',
               'data': data,

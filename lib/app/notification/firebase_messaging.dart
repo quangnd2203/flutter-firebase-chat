@@ -25,6 +25,14 @@ class FirebaseCloudMessaging {
     return resultFCMToken;
   }
 
+  static Future<void> subscribeToTopic(String topic) async {
+    FirebaseMessaging.instance.subscribeToTopic(topic);
+  }
+
+  static Future<void> unSubscribeFromTopic(String topic) async {
+    FirebaseMessaging.instance.unsubscribeFromTopic(topic);
+  }
+
   static Future<void> initFirebaseMessaging() async {
     await instance.requestPermission();
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {

@@ -3,6 +3,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../../notification/firebase_messaging.dart';
 import '../../resources/resources.dart';
 import '../../routes/app_pages.dart';
 import '../../utils/utils.dart';
@@ -19,11 +20,12 @@ class NavigationController extends BaseController {
   @override
   Future<void> onInit() async {
     super.onInit();
-    // ignore: avoid_function_literals_in_foreach_calls
+    FirebaseCloudMessaging.subscribeToTopic('conversation/${AppPrefs.user!.uid!}');
   }
 
   void logout(){
     UserRepositoryHelper().updateFcmToken('', updateClause: "uid='${AppPrefs.user!.uid!}'");
+    FirebaseCloudMessaging.unSubscribeFromTopic('conversation/${AppPrefs.user!.uid!}');
     AppPrefs.accessToken = null;
     AppPrefs.user = null;
     Get.offAndToNamed(Routes.LOGIN_REGISTER);

@@ -56,13 +56,15 @@ class FirebaseRepository {
     required String title,
     required String content,
     Map<String, dynamic>? data,
-    required List<String> fcmToken,
+    required List<String> topics,
   }) async {
     final bool isDisconnect = await WifiService.isDisconnect();
     if (isDisconnect) {
       return NetworkState<dynamic>.withDisconnect();
     }
     try {
+      final String condition = "'${topics[0]}' IN topics || '${topics[1]}' IN topics";
+      print(condition);
       final Response<dynamic> response = await AppClients(
           options: BaseOptions(headers: <String, dynamic>{
         'Authorization': FIRE_BASE_MESSAGE_TOKEN,
@@ -72,7 +74,8 @@ class FirebaseRepository {
           'priority': 'HIGH',
           'notification': <String, dynamic>{'title': title, 'body': content},
           'data': data,
-          'registration_ids': fcmToken,
+          'condition': condition,
+          // 'registration_ids': fcmToken,
         },
       );
       return NetworkState<dynamic>(
