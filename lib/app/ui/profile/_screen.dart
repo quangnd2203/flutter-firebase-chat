@@ -43,7 +43,8 @@ class ProfileScreen extends BaseScreen<ProfileController> {
             icon: Icons.logout_outlined,
             iconColor: Colors.red,
             textAlign: TextAlign.center,
-            textStyle: AppTextStyles.normalBold.copyWith(fontSize: 20, color: Colors.red),
+            textStyle: AppTextStyles.normalBold
+                .copyWith(fontSize: 20, color: Colors.red),
             title: 'profile_logout',
           ),
         ],
@@ -51,7 +52,7 @@ class ProfileScreen extends BaseScreen<ProfileController> {
     );
   }
 
-  Widget buildInfo(){
+  Widget buildInfo() {
     return WidgetUserBuilder(
       userBuilder: (UserModel? user) {
         return Column(
@@ -92,6 +93,7 @@ class ProfileScreen extends BaseScreen<ProfileController> {
                   child: buildButtonEditAvatar(
                     backgroundColor: Colors.transparent,
                     borderColor: Colors.black.withOpacity(0.05),
+                    onTap: () => null,
                   ),
                 ),
               ],
@@ -121,7 +123,9 @@ class ProfileScreen extends BaseScreen<ProfileController> {
                 Positioned(
                   bottom: 16,
                   right: 16,
-                  child: buildButtonEditAvatar(),
+                  child: buildButtonEditAvatar(
+                    onTap: () => controller.showDialogPickImage(),
+                  ),
                 ),
               ],
             ),
@@ -131,18 +135,24 @@ class ProfileScreen extends BaseScreen<ProfileController> {
     );
   }
 
-  Widget buildButtonEditAvatar(
-  {Color? borderColor, Color? backgroundColor, Color? iconColor}
-      ){
-    return CircleAvatar(
-      backgroundColor: borderColor ?? Colors.white,
-      child: Padding(
-        padding: const EdgeInsets.all(3),
-        child: CircleAvatar(
-          backgroundColor: backgroundColor ?? AppColors.greyDark,
-          child: Icon(
-            Icons.edit_outlined,
-            color: iconColor ?? Colors.white,
+  Widget buildButtonEditAvatar({
+    Color? borderColor,
+    Color? backgroundColor,
+    Color? iconColor,
+    required Function onTap,
+  }) {
+    return GestureDetector(
+      onTap: () => onTap(),
+      child: CircleAvatar(
+        backgroundColor: borderColor ?? Colors.white,
+        child: Padding(
+          padding: const EdgeInsets.all(3),
+          child: CircleAvatar(
+            backgroundColor: backgroundColor ?? AppColors.greyDark,
+            child: Icon(
+              Icons.edit_outlined,
+              color: iconColor ?? Colors.white,
+            ),
           ),
         ),
       ),

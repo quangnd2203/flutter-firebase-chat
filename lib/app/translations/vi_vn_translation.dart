@@ -28,4 +28,7 @@ final Map<String, String> viVN = <String, String>{
   'profile_setting':'Cài đặt',
   'profile_contact':'Liên hệ',
   'profile_logout':'Đăng xuất',
+  'picker_image_gallery':'Chọn ảnh từ thư viện',
+  'picker_image_take_photo':'Chụp ảnh',
+  'close':'Đóng',
 };

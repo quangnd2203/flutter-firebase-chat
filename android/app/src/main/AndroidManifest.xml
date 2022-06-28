@@ -79,6 +79,11 @@
                 <data android:scheme="@string/fb_login_protocol_scheme" />
             </intent-filter>
         </activity>
+        <!-- Image Cropper-->
+        <activity
+            android:name="com.yalantis.ucrop.UCropActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
 <!--        <provider-->
 <!--            android:name="com.pichillilorenzo.flutter_inappwebview.InAppWebViewFileProvider"-->
 <!--            android:authorities="${applicationId}.flutter_inappwebview.fileprovider"-->
