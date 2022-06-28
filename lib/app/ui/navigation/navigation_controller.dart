@@ -26,8 +26,8 @@ class NavigationController extends BaseController {
   void logout(){
     UserRepositoryHelper().updateFcmToken('', updateClause: "uid='${AppPrefs.user!.uid!}'");
     FirebaseCloudMessaging.unSubscribeFromTopic('conversation-${AppPrefs.user!.uid!}');
+    Get.offAndToNamed(Routes.LOGIN_REGISTER);
     AppPrefs.accessToken = null;
     AppPrefs.user = null;
-    Get.offAndToNamed(Routes.LOGIN_REGISTER);
   }
 }

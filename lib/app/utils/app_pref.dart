@@ -10,14 +10,14 @@ class AppPrefs {
 
   static final GetStorage _box = GetStorage('AppPref');
 
-  static final GetStream<dynamic> _userBehavior = GetStream<dynamic>();
+  static final Rx<UserModel?> userBehavior = Rx<UserModel?>(null);
 
   static final GetStream<bool> notificationConversation = GetStream<bool>();
 
   static Future<void> initListener() async {
     await GetStorage.init('AppPref');
-    _box.listenKey('user', (user) {
-      _userBehavior.add(user);
+    _box.listenKey('user', (userModel) {
+      userBehavior.value = user;
     });
     _box.listenKey('newConversations', (value) {
       notificationConversation.add(true);
@@ -45,8 +45,6 @@ class AppPrefs {
     }
     return model;
   }
-
-  static Stream get watchUser => _userBehavior.stream;
 
   static List<String> get newConversations {
     return List<String>.from(_box.read<List<dynamic>>('newConversations') ?? []);

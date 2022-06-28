@@ -4,27 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../constants/constants.dart';
 import '../../resources/resources.dart';
-import '../../routes/app_pages.dart';
 import '../ui.dart';
 import 'widget/widget_conversation.dart';
 
 class MessageScreen extends BaseScreen<MessageController> {
   @override
   Widget? builder() {
-    return Stack(
-      children: <Widget>[
-        buildBody(),
-        Positioned(
-          right: 32,
-          bottom: 100,
-          child: FloatingActionButton(
-            onPressed: () {},
-            backgroundColor: AppColors.pink,
-            child: const Icon(Icons.add),
-          ),
-        ),
-      ],
-    );
+    return buildBody();
   }
 
   Widget buildBody() {

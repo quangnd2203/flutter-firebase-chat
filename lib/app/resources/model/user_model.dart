@@ -1,4 +1,3 @@
-import '../resources.dart';
 
 /// uid : "uid-1655258998474880"
 /// password : "8c389f79e7d90ba088d7a2b05ef6ef6a29cb642110695fa0a7dc45f139cc4882"

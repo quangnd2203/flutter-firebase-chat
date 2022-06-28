@@ -9,3 +9,4 @@ export 'widget_loadmore_wrap_vertical.dart';
 export 'widget_restart.dart';
 export 'widget_sliver_loadmore_vertical.dart';
 export 'widget_theme_switcher.dart';
+export 'widget_user_builder.dart';

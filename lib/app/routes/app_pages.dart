@@ -19,6 +19,7 @@ class AppPages {
         NavigationBinding(),
         MessageBinding(),
         ContactListBinding(),
+        ProfileBinding(),
       ]
     ),
     GetPage(

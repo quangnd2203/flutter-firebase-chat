@@ -2,7 +2,6 @@
 
 import 'package:custom_navigation_bar/custom_navigation_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import '../../constants/constants.dart';
 import '../ui.dart';
 
@@ -17,25 +16,7 @@ class NavigationScreen extends BaseScreen<NavigationController> {
         children: <Widget>[
           MessageScreen(),
           ContactListScreen(),
-          SizedBox(
-            width: Get.width,
-            height: Get.height,
-            child: Center(
-              child: InkWell(
-                onTap: controller.logout,
-                child: Container(
-                  width: 100,
-                  height: 50,
-                  decoration: BoxDecoration(
-                    color: AppColors.primary,
-                  ),
-                  child: const Center(
-                    child: Text('log_out'),
-                  ),
-                ),
-              ),
-            ),
-          ),
+          ProfileScreen(),
         ],
       ),
       backgroundColor: Colors.white,

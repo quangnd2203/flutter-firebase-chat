@@ -4,5 +4,6 @@ export 'login_register/export.dart';
 export 'message/export.dart';
 export 'message_room/export.dart';
 export 'navigation/navigation.dart';
+export 'profile/export.dart';
 export 'splash/splash.dart';
 export 'widgets/widgets.dart';

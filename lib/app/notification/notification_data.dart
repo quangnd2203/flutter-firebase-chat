@@ -34,8 +34,6 @@
 //   }
 // }
 
-import '../resources/model/network_state.dart';
-
 class Data {
   Data({this.type, this.data});
 

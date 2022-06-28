@@ -23,5 +23,9 @@ final Map<String, String> viVN = <String, String>{
   'login_social_another':'Hoặc đăng nhập với',
   'app_slogan':'Nói lời yêu thương',
   'contact_list':'Danh bạ',
-  'message':'Tin nhắn'
+  'message':'Tin nhắn',
+  'profile_edit':'Chỉnh sửa thông tin cá nhân',
+  'profile_setting':'Cài đặt',
+  'profile_contact':'Liên hệ',
+  'profile_logout':'Đăng xuất',
 };

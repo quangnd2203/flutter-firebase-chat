@@ -26,7 +26,7 @@ class _WidgetMessageItemState extends State<WidgetMessageItem> {
     return Align(
       alignment: widget.isOwner ? Alignment.centerRight : Alignment.centerLeft,
       child: Padding(
-        padding: const EdgeInsets.only(bottom: 16),
+        padding: const EdgeInsets.only(bottom: 12),
         child: Column(
           crossAxisAlignment: widget.isOwner
               ? CrossAxisAlignment.end
@@ -48,7 +48,7 @@ class _WidgetMessageItemState extends State<WidgetMessageItem> {
                     bottomLeft: widget.isOwner ? null : Radius.zero,
                   ),
                 ),
-                padding: const EdgeInsets.all(16),
+                padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
                 child: Text(
                   widget.messageModel.text!,
                   style: AppTextStyles.normalSemiBold.copyWith(

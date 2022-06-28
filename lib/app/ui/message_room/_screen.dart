@@ -1,13 +1,13 @@
 // ignore_for_file: use_key_in_widget_constructors
 
 import 'package:flutter/material.dart';
-import 'package:flutter_app/app/ui/message_room/widget_message_item.dart';
 import 'package:get/get.dart';
 
 import '../../constants/constants.dart';
 import '../../resources/resources.dart';
 import '../../utils/utils.dart';
 import '../ui.dart';
+import 'widget_message_item.dart';
 
 class MessageRoomScreen extends BaseScreen<MessageRoomController> {
   @override

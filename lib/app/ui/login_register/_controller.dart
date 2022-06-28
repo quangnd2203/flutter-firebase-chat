@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import '../../resources/resources.dart';
 import '../../routes/app_pages.dart';
 import '../../utils/app_utils.dart';
-import '../../utils/utils.dart';
 import '../ui.dart';
 
 class LoginRegisterController extends BaseController {

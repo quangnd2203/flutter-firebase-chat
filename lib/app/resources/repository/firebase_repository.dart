@@ -64,7 +64,6 @@ class FirebaseRepository {
     }
     try {
       final String condition = "'${topics[0]}' IN topics || '${topics[1]}' IN topics";
-      print(condition);
       final Response<dynamic> response = await AppClients(
           options: BaseOptions(headers: <String, dynamic>{
         'Authorization': FIRE_BASE_MESSAGE_TOKEN,
