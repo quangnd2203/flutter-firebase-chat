@@ -232,7 +232,7 @@ class UserRepository {
     try{
       UserModel? user;
 
-      final String? filePath = await Backendless.files.upload(file, AppEndpoint.UPLOAD_AVATAR, overwrite: true);
+      final String? filePath = await Backendless.files.upload(file, isAvatar ? AppEndpoint.UPLOAD_AVATAR : AppEndpoint.UPLOAD_BACKGROUND, overwrite: true);
 
       if(filePath != null){
         await UserDao().update(whereClause: "accessToken='${AppPrefs.accessToken}'", data: <String, dynamic>{
