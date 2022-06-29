@@ -57,7 +57,7 @@ class ProfileScreen extends BaseScreen<ProfileController> {
       userBuilder: (UserModel? user) {
         return Column(
           children: <Widget>[
-            buildImages(),
+            buildImages(user),
             const SizedBox(
               height: 4,
             ),
@@ -71,7 +71,7 @@ class ProfileScreen extends BaseScreen<ProfileController> {
     );
   }
 
-  Widget buildImages() {
+  Widget buildImages(UserModel? user) {
     return AspectRatio(
       aspectRatio: 1,
       child: Stack(
@@ -82,9 +82,8 @@ class ProfileScreen extends BaseScreen<ProfileController> {
               children: <Widget>[
                 AspectRatio(
                   aspectRatio: 4 / 3,
-                  child: Image.asset(
-                    AppImages.jpg('anhnen'),
-                    fit: BoxFit.cover,
+                  child: WidgetImageNetwork(
+                    url: user?.background ?? '',
                   ),
                 ),
                 Positioned(
@@ -93,7 +92,7 @@ class ProfileScreen extends BaseScreen<ProfileController> {
                   child: buildButtonEditAvatar(
                     backgroundColor: Colors.transparent,
                     borderColor: Colors.black.withOpacity(0.05),
-                    onTap: () => null,
+                    onTap: () => controller.showDialogPickImage(false),
                   ),
                 ),
               ],
@@ -110,11 +109,8 @@ class ProfileScreen extends BaseScreen<ProfileController> {
                     child: Padding(
                       padding: const EdgeInsets.all(8),
                       child: ClipOval(
-                        child: Image.asset(
-                          AppImages.jpg('anhnen'),
-                          width: double.maxFinite,
-                          height: double.maxFinite,
-                          fit: BoxFit.cover,
+                        child: WidgetImageNetwork(
+                          url: user?.avatar ?? '',
                         ),
                       ),
                     ),
@@ -139,7 +135,7 @@ class ProfileScreen extends BaseScreen<ProfileController> {
     Color? borderColor,
     Color? backgroundColor,
     Color? iconColor,
-    required Function onTap,
+    required VoidCallback onTap,
   }) {
     return GestureDetector(
       onTap: () => onTap(),

@@ -19,4 +19,6 @@ class AppEndpoint {
   static const int ERROR_DISCONNECT = -1;
 
   // static const String MORE_APPS = '/hsmoreapp';
+  static const String UPLOAD_AVATAR = '/upload/avatar/';
+  static const String UPLOAD_BACKGROUND = '/upload/background/';
 }

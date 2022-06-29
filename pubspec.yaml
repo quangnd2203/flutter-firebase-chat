@@ -34,14 +34,14 @@ dependencies:
 
   crypto: ^3.0.2
   get: ^4.6.5
-  flutter_svg: ^1.1.0
+  flutter_svg: ^1.1.1
   path_provider: ^2.0.11
   device_info_plus: ^4.0.0
   overlay_support: ^2.0.1
   get_storage: ^2.0.3
 
   #BackEnd
-  backendless_sdk: ^7.2.3
+  backendless_sdk: ^7.2.4
 
   #Other
   keyboard_dismisser: ^3.0.0
@@ -51,6 +51,8 @@ dependencies:
   modal_bottom_sheet: ^2.1.0
   permission_handler: ^10.0.0
   image_cropper: ^2.0.3
+  path: ^1.8.2
+  cached_network_image: ^3.2.1
 
 flutter:
   uses-material-design: true

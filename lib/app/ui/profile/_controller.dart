@@ -1,9 +1,9 @@
 import 'dart:io';
-
-import 'package:get/get.dart';
 import 'package:image_cropper/image_cropper.dart';
-
+import 'package:path/path.dart' as path;
 import '../../resources/resources.dart';
+import '../../utils/app_pref.dart';
+import '../../utils/app_utils.dart';
 import '../ui.dart';
 
 class ProfileController extends BaseController {
@@ -12,16 +12,23 @@ class ProfileController extends BaseController {
     super.onInit();
   }
 
-  Future<void> showDialogPickImage() async {
-    final File? file = await bottomSheet<File>(
+  Future<void> showDialogPickImage([bool isAvatar = true]) async {
+    File? file = await bottomSheet<File>(
       child: WidgetDialogImagePicker(),
     );
     if (file != null) {
-      final CroppedFile? imageCropper = await ImageCropper().cropImage(
-        sourcePath: file.path,
-        aspectRatio: CropAspectRatio(ratioX: 2, ratioY: 2),
-        cropStyle: CropStyle.circle,
+      final CroppedFile? imageCropper = await AppUtils.cropImage(
+        file.path,
+        cropStyle: isAvatar ? CropStyle.circle : CropStyle.rectangle,
+        ratioY: isAvatar ? 4 : 3,
       );
+      if (imageCropper != null) {
+        file = File(imageCropper.path);
+        final String fileName = '${isAvatar ? 'avatar' : 'background'}-${AppPrefs.user!.uid!}.jpg';
+        final String newPath = path.join(path.dirname(file.path), fileName);
+        file = file.renameSync(newPath);
+        await UserRepository().uploadUserMedia(file, isAvatar: isAvatar);
+      }
     }
   }
 }

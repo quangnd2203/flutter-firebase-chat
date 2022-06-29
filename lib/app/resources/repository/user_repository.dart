@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:get/get.dart';
 
 import '../../constants/constants.dart';
@@ -219,6 +221,36 @@ class UserRepository {
       );
     }on Exception catch(e) {
       return NetworkState<List<UserModel>>.withError(e);
+    }
+  }
+
+  Future<NetworkState<UserModel?>> uploadUserMedia(File file, {bool isAvatar = true}) async {
+    final bool isDisconnect = await WifiService.isDisconnect();
+    if (isDisconnect) {
+      return NetworkState<UserModel>.withDisconnect();
+    }
+    try{
+      UserModel? user;
+
+      final String? filePath = await Backendless.files.upload(file, AppEndpoint.UPLOAD_AVATAR, overwrite: true);
+
+      if(filePath != null){
+        await UserDao().update(whereClause: "accessToken='${AppPrefs.accessToken}'", data: <String, dynamic>{
+          isAvatar ? 'avatar' : 'background': filePath,
+        });
+        user = await helper.getUser(whereClause: "accessToken='${AppPrefs.accessToken}'");
+        if(user != null){
+          AppPrefs.user = user;
+        }
+      }
+
+      return NetworkState<UserModel>(
+        status: user != null ? AppEndpoint.SUCCESS : AppEndpoint.FAILED,
+        data: user,
+        message: user != null ? 'success' : 'system_errors'.tr,
+      );
+    }on Exception catch(e) {
+      return NetworkState<UserModel>.withError(e);
     }
   }
 }

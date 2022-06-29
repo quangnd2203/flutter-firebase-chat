@@ -31,4 +31,5 @@ final Map<String, String> viVN = <String, String>{
   'picker_image_gallery':'Chọn ảnh từ thư viện',
   'picker_image_take_photo':'Chụp ảnh',
   'close':'Đóng',
+  'edit':'Chỉnh sửa',
 };

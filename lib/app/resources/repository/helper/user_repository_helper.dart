@@ -10,7 +10,7 @@ class UserRepositoryHelper{
 
   static UserRepositoryHelper? _instance;
 
-  static const List<String> _defaultProperties = <String>['uid', 'name', 'email', 'isNewUser', 'accountType', 'objectId'];
+  static const List<String> _defaultProperties = <String>['uid', 'name', 'email', 'isNewUser', 'accountType', 'objectId', 'avatar', 'background'];
 
   Future<void> updateFcmToken(String fcmToken, {String? updateClause}) async {
     final String whereClauseDelete = "fcmToken = '$fcmToken'";

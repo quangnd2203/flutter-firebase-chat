@@ -83,7 +83,7 @@ class WidgetDialogImagePicker extends StatelessWidget {
   }
 
   Future<void> pickImage(ImageSource source) async {
-    final XFile? xFile = await picker.pickImage(source: source, imageQuality: 50);
+    final XFile? xFile = await picker.pickImage(source: source);
     if (xFile != null) {
       final File file = File(xFile.path);
       Get.back(result: file);

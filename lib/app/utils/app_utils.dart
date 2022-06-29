@@ -4,6 +4,8 @@ import 'dart:convert';
 
 import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:image_cropper/image_cropper.dart';
 import 'package:intl/intl.dart';
 import 'package:overlay_support/overlay_support.dart';
 
@@ -135,5 +137,26 @@ class AppUtils {
       return '${duration.inDays} days';
     }
     return convertDateTime2String(date, format: 'dd/MM/yyyy');
+  }
+
+  static Future<CroppedFile?> cropImage(String filePath, {CropStyle? cropStyle, int ratioX = 4, int ratioY = 3}) async {
+    final CroppedFile? imageCropper = await ImageCropper().cropImage(
+      sourcePath: filePath,
+      cropStyle: cropStyle ?? CropStyle.rectangle,
+      compressQuality: 50,
+      aspectRatio: CropAspectRatio(ratioX: ratioX.toDouble(), ratioY: ratioY.toDouble()),
+      uiSettings: <PlatformUiSettings>[
+        AndroidUiSettings(
+          toolbarTitle: 'edit'.tr,
+          backgroundColor: Colors.white,
+          hideBottomControls: true,
+        ),
+        IOSUiSettings(
+          title: 'edit'.tr,
+          hidesNavigationBar: true,
+        ),
+      ],
+    );
+    return imageCropper;
   }
 }

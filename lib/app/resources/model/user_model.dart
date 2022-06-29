@@ -17,6 +17,8 @@ class UserModel {
     this.isNewUser,
     this.accessToken,
     this.objectId,
+    this.avatar,
+    this.background,
   });
 
   UserModel.fromJson(Map<String, dynamic> json) {
@@ -29,6 +31,8 @@ class UserModel {
     isNewUser = json['isNewUser'] as bool?;
     accessToken = json['accessToken'] as String?;
     objectId = json['objectId'] as String?;
+    avatar = json['avatar'] as String?;
+    background = json['background'] as String?;
   }
 
   String? uid;
@@ -38,6 +42,8 @@ class UserModel {
   String? fcmToken;
   String? email;
   String? accessToken;
+  String? avatar;
+  String? background;
   String? objectId;
   bool? isNewUser;
 
@@ -51,6 +57,8 @@ class UserModel {
     bool? isNewUser,
     String? accessToken,
     String? objectId,
+    String? avatar,
+    String? background,
   }) =>
       UserModel(
         uid: uid ?? this.uid,
@@ -62,6 +70,8 @@ class UserModel {
         isNewUser: isNewUser ?? this.isNewUser,
         accessToken: accessToken ?? this.accessToken,
         objectId: objectId ?? this.objectId,
+        avatar: avatar ?? this.avatar,
+        background: background ?? this.background,
       );
 
   Map<String, dynamic> toJson() {
@@ -75,6 +85,8 @@ class UserModel {
     map['isNewUser'] = isNewUser;
     map['accessToken'] = accessToken;
     map['objectId'] = objectId;
+    map['background'] = background;
+    map['avatar'] = avatar;
     return map;
   }
 
