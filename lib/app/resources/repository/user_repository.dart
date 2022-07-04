@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:get/get.dart';
 
 import '../../constants/constants.dart';
@@ -231,12 +232,14 @@ class UserRepository {
     }
     try{
       UserModel? user;
-
+      final String? preFile = (isAvatar ? AppPrefs.user?.avatar : AppPrefs.user?.background)?.replaceAll(AppEndpoint.BASE_MEDIA, '');
+      if(preFile != null)
+        Backendless.files.remove(preFile);
       final String? filePath = await Backendless.files.upload(file, isAvatar ? AppEndpoint.UPLOAD_AVATAR : AppEndpoint.UPLOAD_BACKGROUND, overwrite: true);
 
       if(filePath != null){
         await UserDao().update(whereClause: "accessToken='${AppPrefs.accessToken}'", data: <String, dynamic>{
-          isAvatar ? 'avatar' : 'background': filePath,
+          isAvatar ? 'avatar' : 'background': filePath.replaceAll(AppEndpoint.BASE_MEDIA, ''),
         });
         user = await helper.getUser(whereClause: "accessToken='${AppPrefs.accessToken}'");
         if(user != null){

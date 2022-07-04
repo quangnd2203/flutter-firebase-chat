@@ -23,10 +23,11 @@ class NavigationController extends BaseController {
     FirebaseCloudMessaging.subscribeToTopic('conversation-${AppPrefs.user!.uid!}');
   }
 
-  void logout(){
+  Future<void> logout() async {
     UserRepositoryHelper().updateFcmToken('', updateClause: "uid='${AppPrefs.user!.uid!}'");
     FirebaseCloudMessaging.unSubscribeFromTopic('conversation-${AppPrefs.user!.uid!}');
     Get.offAndToNamed(Routes.LOGIN_REGISTER);
+    await Future.delayed(const Duration(milliseconds: 500));
     AppPrefs.accessToken = null;
     AppPrefs.user = null;
   }

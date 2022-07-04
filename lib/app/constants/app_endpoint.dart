@@ -3,6 +3,7 @@ class AppEndpoint {
 
   static const String BASE_URL_DEV = 'http://relax365.net';
   static const String BASE_URL_PROD = 'http://relax365.net';
+  static const String BASE_MEDIA = 'https://backendlessappcontent.com/2D866C83-7891-28FE-FF30-B43753E33600/90F5F65B-EA5B-45D0-A9A5-EE84A0880701/files';
 
   static const String TEST_API = 'https://jsonplaceholder.typicode.com/posts';
   static const String SEND_FCM_TOKEN = 'https://fcm.googleapis.com/fcm/send';

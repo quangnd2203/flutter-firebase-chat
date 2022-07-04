@@ -46,6 +46,7 @@ class ProfileScreen extends BaseScreen<ProfileController> {
             textStyle: AppTextStyles.normalBold
                 .copyWith(fontSize: 20, color: Colors.red),
             title: 'profile_logout',
+            onTap: Get.find<NavigationController>().logout,
           ),
         ],
       ),
@@ -83,7 +84,8 @@ class ProfileScreen extends BaseScreen<ProfileController> {
                 AspectRatio(
                   aspectRatio: 4 / 3,
                   child: WidgetImageNetwork(
-                    url: user?.background ?? '',
+                    url: user?.background,
+                    key: UniqueKey(),
                   ),
                 ),
                 Positioned(
@@ -110,7 +112,8 @@ class ProfileScreen extends BaseScreen<ProfileController> {
                       padding: const EdgeInsets.all(8),
                       child: ClipOval(
                         child: WidgetImageNetwork(
-                          url: user?.avatar ?? '',
+                          url: user?.avatar,
+                          key: UniqueKey(),
                         ),
                       ),
                     ),
@@ -161,49 +164,53 @@ class ProfileScreen extends BaseScreen<ProfileController> {
     TextAlign textAlign = TextAlign.left,
     TextStyle? textStyle,
     Color? iconColor,
+    VoidCallback? onTap,
   }) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-      child: PhysicalModel(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(10),
-        elevation: 4,
-        child: Container(
-          padding: const EdgeInsets.all(16),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10),
-            border: Border.all(color: AppColors.grey, width: 0.25),
-          ),
-          child: Row(
-            children: <Widget>[
-              Icon(
-                icon,
-                size: 25,
-                color: iconColor ?? AppColors.text,
-              ),
-              const SizedBox(
-                width: 12,
-              ),
-              Expanded(
-                child: Text(
-                  title.tr,
-                  style: textStyle ??
-                      AppTextStyles.normalSemiBold.copyWith(fontSize: 16),
-                  textAlign: textAlign,
-                ),
-              ),
-              const SizedBox(
-                width: 12,
-              ),
-              Opacity(
-                opacity: 0,
-                child: Icon(
+    return GestureDetector(
+      onTap: onTap ?? (){},
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+        child: PhysicalModel(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(10),
+          elevation: 4,
+          child: Container(
+            padding: const EdgeInsets.all(16),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+              border: Border.all(color: AppColors.grey, width: 0.25),
+            ),
+            child: Row(
+              children: <Widget>[
+                Icon(
                   icon,
                   size: 25,
                   color: iconColor ?? AppColors.text,
                 ),
-              ),
-            ],
+                const SizedBox(
+                  width: 12,
+                ),
+                Expanded(
+                  child: Text(
+                    title.tr,
+                    style: textStyle ??
+                        AppTextStyles.normalSemiBold.copyWith(fontSize: 16),
+                    textAlign: textAlign,
+                  ),
+                ),
+                const SizedBox(
+                  width: 12,
+                ),
+                Opacity(
+                  opacity: 0,
+                  child: Icon(
+                    icon,
+                    size: 25,
+                    color: iconColor ?? AppColors.text,
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),

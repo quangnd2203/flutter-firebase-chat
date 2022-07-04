@@ -24,11 +24,12 @@ class ProfileController extends BaseController {
       );
       if (imageCropper != null) {
         file = File(imageCropper.path);
-        final String fileName = '${isAvatar ? 'avatar' : 'background'}-${AppPrefs.user!.uid!}.jpg';
+        final String fileName = '${isAvatar ? 'avatar' : 'background'}-${AppPrefs.user!.uid!}${BackendService().generateGUID('')}.jpg';
         final String newPath = path.join(path.dirname(file.path), fileName);
         file = file.renameSync(newPath);
         await UserRepository().uploadUserMedia(file, isAvatar: isAvatar);
       }
     }
   }
+
 }

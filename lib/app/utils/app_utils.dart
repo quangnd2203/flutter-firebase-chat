@@ -63,7 +63,7 @@ class AppUtils {
     if (url == null || url.startsWith('http')) {
       return url ?? '';
     }
-    return "${"AppEndpoint.BASE_UPLOAD_URL"}$url";
+    return '${AppEndpoint.BASE_MEDIA}$url';
   }
 
   static String convertDateTime2String(DateTime? dateTime, {String format = 'yy-MM-dd'}) {

@@ -1,5 +1,6 @@
 export 'dialog/dialog.dart';
 export 'fade_indexed_stack.dart';
+export 'widget_avatar.dart';
 export 'widget_button.dart';
 export 'widget_empty.dart';
 export 'widget_image_network.dart';

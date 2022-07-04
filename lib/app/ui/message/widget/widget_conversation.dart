@@ -4,6 +4,7 @@ import '../../../constants/constants.dart';
 import '../../../resources/resources.dart';
 import '../../../utils/app_utils.dart';
 import '../../../utils/utils.dart';
+import '../../ui.dart';
 
 class WidgetConversation extends StatelessWidget {
   WidgetConversation({Key? key, required this.conversation}) : super(key: key);
@@ -21,7 +22,8 @@ class WidgetConversation extends StatelessWidget {
     return '${conversation.lastMessage!.user!.uid != partner.uid ? 'Bạn: ' : ''}${conversation.lastMessage!.text!}';
   }
 
-  bool get isNew => AppPrefs.newConversations.contains(conversation.conversationId);
+  bool get isNew =>
+      AppPrefs.newConversations.contains(conversation.conversationId);
 
   @override
   Widget build(BuildContext context) {
@@ -32,19 +34,13 @@ class WidgetConversation extends StatelessWidget {
         elevation: 3,
         borderRadius: BorderRadius.circular(8),
         child: Padding(
-          padding: const EdgeInsets.all(16.0),
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
           child: IntrinsicHeight(
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(999),
-                  child: Image.asset(
-                    AppImages.jpg('anhnen'),
-                    fit: BoxFit.cover,
-                    width: 65,
-                    height: 65,
-                  ),
+                WidgetAvatar(
+                  avatar: partner.avatar,
                 ),
                 const SizedBox(
                   width: 16,
@@ -68,7 +64,7 @@ class WidgetConversation extends StatelessWidget {
                         showMessage,
                         style: AppTextStyles.normal.copyWith(
                           fontSize: 14,
-                          color: isNew ? AppColors.text :AppColors.grey,
+                          color: isNew ? AppColors.text : AppColors.grey,
                           fontWeight: isNew ? FontWeight.bold : FontWeight.w500,
                         ),
                         maxLines: 2,
@@ -79,14 +75,16 @@ class WidgetConversation extends StatelessWidget {
                 const SizedBox(
                   width: 16,
                 ),
-                if(conversation.lastMessage != null)
-                Padding(
-                  padding: const EdgeInsets.only(top: 4),
-                  child: Text(
-                    AppUtils.getTimePeriod(AppUtils.convertString2DateTime(conversation.lastMessage!.created, format: 'yyyy-MM-dd HH:mm:SS.SSS')!),
-                    style: AppTextStyles.normalRegular.copyWith(fontSize: 12),
-                  ),
-                )
+                if (conversation.lastMessage != null)
+                  Padding(
+                    padding: const EdgeInsets.only(top: 4),
+                    child: Text(
+                      AppUtils.getTimePeriod(AppUtils.convertString2DateTime(
+                          conversation.lastMessage!.created,
+                          format: 'yyyy-MM-dd HH:mm:SS.SSS')!),
+                      style: AppTextStyles.normalRegular.copyWith(fontSize: 12),
+                    ),
+                  )
               ],
             ),
           ),
