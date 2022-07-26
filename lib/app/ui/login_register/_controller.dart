@@ -89,7 +89,6 @@ class LoginRegisterController extends BaseController {
       case SocialType.apple:
         break;
     }
-
     if(loginSocialResult?.id != null){
       setLoading(true);
       final NetworkState<UserModel?> networkState = await userRepository.loginSocial(loginSocialResult!, type);

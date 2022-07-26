@@ -27,6 +27,7 @@ class ProfileScreen extends BaseScreen<ProfileController> {
           buildTab(
             icon: Icons.edit_outlined,
             title: 'profile_edit',
+            onTap: controller.toChangeProfileInfo,
           ),
           buildTab(
             icon: Icons.settings_outlined,

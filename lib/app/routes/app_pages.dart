@@ -32,5 +32,10 @@ class AppPages {
       page: () => MessageRoomScreen(),
       binding: MessageRoomBinding(),
     ),
+    GetPage(
+      name: Routes.PROFILE_CHANGE_INFO,
+      page: () => ProfileChangInfoScreen(),
+      binding: ProfileChangInfoBinding(),
+    ),
   ];
 }

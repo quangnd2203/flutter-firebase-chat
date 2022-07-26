@@ -1,7 +1,9 @@
 import 'dart:io';
+import 'package:get/get.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:path/path.dart' as path;
 import '../../resources/resources.dart';
+import '../../routes/app_pages.dart';
 import '../../utils/app_pref.dart';
 import '../../utils/app_utils.dart';
 import '../ui.dart';
@@ -32,4 +34,7 @@ class ProfileController extends BaseController {
     }
   }
 
+  void toChangeProfileInfo(){
+    Get.toNamed(Routes.PROFILE_CHANGE_INFO);
+  }
 }
